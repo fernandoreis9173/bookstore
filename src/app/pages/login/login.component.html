@@ -1,0 +1,100 @@
+<div class="parent">
+  <div class="main">
+    <input type="checkbox" id="chk" aria-hidden="true">
+
+      <div class="signup">
+        <form>
+          <label for="chk" aria-hidden="true">Sign up</label>
+          <input type="text" name="txt" placeholder="UserName" required="">
+          <input type="text" name="nome" placeholder="Name" required="">
+          <input type="email" name="email" placeholder="Email" required="">
+          <input type="password" name="pswd" placeholder="Password" required="">
+          <button>Sign up</button>
+        </form>
+      </div>
+
+      <div class="login">
+        <!-- <form > -->
+          <form class="form-inputs" [formGroup]="loginForm" (submit)="loginUser()">
+          <label for="chk" aria-hidden="true">Login</label>
+          <div class="group-input">
+          <input class="input-form" type="text" name="username" id="username" placeholder="UserName"
+                        formControlName="username" required="">
+                        <p *ngIf="loginForm.get('username')?.errors?.['required'] &&  loginForm.get('username')?.touched"
+                        class="error-input">
+                        UserName Obrigatório!
+          </p>
+          </div>
+          <div class="group-input">
+                    <input class="input-form" type="password" name="password" id="password" placeholder="Password"
+                    formControlName="password" required="">
+
+                <p *ngIf="loginForm.get('password')?.errors?.['required'] &&  loginForm.get('password')?.touched"
+                    class="error-input">
+                    Password Obrigatório!
+          </p>
+              </div>
+          <button>Login</button>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+<!--
+<div class="container-login">
+
+    <div class="container-login-central">
+
+        <div class="container-header">
+            <div class="titulo-login">
+                Dev Net Core
+            </div>
+            <div class="info-login">
+                Digite seu username e senha para logar!
+            </div>
+
+        </div>
+
+
+        <div class="container-form">
+            <form class="form-inputs" [formGroup]="loginForm" (submit)="loginUser()">
+                <div class="group-input">
+                    <div class="text-info">
+                        UserName
+                    </div>
+                    <input class="input-form" type="text" name="username" id="username" placeholder="UserName"
+                        formControlName="username" required="">
+
+                    <label *ngIf="loginForm.get('username')?.errors?.['required'] &&  loginForm.get('username')?.touched"
+                        class="error-input">
+                        Campo Obrigatório!
+                    </label>
+                </div>
+
+                <div class="group-input">
+                    <div class="text-info">
+                      password
+                    </div>
+                    <input class="input-form" type="password" name="password" id="password" placeholder="Password"
+                        formControlName="password" required="">
+
+                    <label *ngIf="loginForm.get('password')?.errors?.['required'] &&  loginForm.get('password')?.touched"
+                        class="error-input">
+                        Campo Obrigatório!
+                    </label>
+                </div>
+
+                <div class="group-input">
+                    <input type="submit" class="btn-login" value="Login" [ngClass]="{'disabled' : !loginForm.valid}"
+                        [disabled]="!loginForm.valid">
+
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div> -->
