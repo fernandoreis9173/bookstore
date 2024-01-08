@@ -15,6 +15,7 @@ export class BookstoreService {
   private readonly baseUrl = environment["endPoint"];
 
   registerBook(title: string, description: string, author: string, qtd: number) {
+
     return this.httpClient.post<any>(`${this.baseUrl}/book`, { title: title, description: description, author: author, qtd: qtd }).pipe(
       catchError((error) => {
         console.error('Error during registration:', error);

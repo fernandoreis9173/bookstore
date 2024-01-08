@@ -43,20 +43,6 @@ export class LoginComponent {
       });
   }
 
-  // ngOmInit(): void {
-  //   this.registerForm = this.formBuilder.group
-  //   (
-  //     {
-  //       username: ['', [Validators.required]],
-  //       name: ['', [Validators.required]],
-  //       email: ['', [Validators.required]],
-  //       password: ['', [Validators.required]]
-  //     }
-  //   )
-  // }
-  // registerForm: FormGroup;
-
-
   get dadosForm() {
     return this, this.loginForm.controls;
   }
