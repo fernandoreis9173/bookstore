@@ -1,0 +1,36 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div class="container-base">
+    <div class="content-page">
+      <div class="card-header">
+        <div class="card-title">
+            Register Book
+        </div>
+      </div>
+
+      <form class="form-page" [formGroup]="bookstoreForm" (submit)="enviar()">
+        <div class="row">
+          <div class="group-row">
+            <label>BookStore</label>
+            <input class="input-form" type="text" name="title" id="title" placeholder="Title" formControlName="title" required="">
+            <input class="input-form" type="text" name="description" id="description" placeholder="Description" formControlName="description" required="">
+            <input class="input-form" type="text" name="author" id="author" placeholder="Author" formControlName="author" required="">
+            <input class="input-form" type="number" name="qtd" id="qtd" placeholder="Amount" formControlName="qtd" required="">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="group-row">
+
+            <!-- <input type="submit" value="Salvar" class="btn-primary"/> -->
+            <button>enviar</button>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+</div>
