@@ -4,7 +4,10 @@ import { NavbarModule } from 'src/app/components/navbar/navbar.module';
 import { SidebarModule } from 'src/app/components/sidebar/sidebar.module';
 import { BookstoreComponent } from './bookstore.component';
 import { BookstoreRoutingModule } from './bookstore-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { MatIconModule } from '@angular/material/icon'
 
 
 @NgModule(
@@ -16,7 +19,12 @@ import { ReactiveFormsModule } from '@angular/forms';
             BookstoreRoutingModule,
             NavbarModule,
             SidebarModule,
-            ReactiveFormsModule
+            ReactiveFormsModule,
+
+            NgxPaginationModule,
+            FormsModule,
+            NgSelectModule,
+            MatIconModule
         ]
     }
 )

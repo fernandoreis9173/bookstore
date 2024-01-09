@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(public formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    public authService: AuthService) {
 
   }
 
@@ -50,11 +52,17 @@ export class LoginComponent {
   loginUser() {
 
     this.loginService.login(this.dadosForm["username"].value, this.dadosForm["password"].value).subscribe(
-      token => {
-        this.router.navigate(['/dashboard']);
-        this.snackBar.open('Login Successful.', 'Close', {
+      result => {
+        if (result && result.result && result.result.token) {
+          this.authService.setToken(result.result.token)
+          this.authService.UsuarioAutenticado(true)
+          this.router.navigate(['/dashboard']);
+          this.snackBar.open('Login Successful.', 'Close', {
           duration: 2000, // duração em milissegundos (opcional)
         });
+        } else {
+          console.error("Token not found in the response:", result);
+        }
       },
       err => {
         this.snackBar.open('Unauthorized Access', 'Close', {

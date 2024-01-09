@@ -6,11 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpStatus, LoaderInterceptor } from './interceptor/loader.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AuthGuard } from './pages/guards/auth-guard.service';
 
+const RxJS = [LoaderInterceptor, HttpStatus]
 
 @NgModule({
   declarations: [
@@ -26,8 +30,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FormsModule,
+
+    NgxSpinnerModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    RxJS,
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

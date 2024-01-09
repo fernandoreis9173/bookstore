@@ -2,34 +2,92 @@
 <sidebar></sidebar>
 
 
-<div class="container-base">
-    <div class="content-page">
-      <div class="card-header">
-        <div class="card-title">
-            Register Book
+<div *ngIf="tipoTela == 2" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register Book</div>
+      <div (click)="getBook()" class="card-menu">List Book</div>
+    </div>
+
+    <form class="form-page" [formGroup]="bookstoreForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>BookStore</label>
+          <input class="input-form" type="text" name="title" id="title" placeholder="Title" formControlName="title"
+            required="">
+          <input class="input-form" type="text" name="description" id="description" placeholder="Description"
+            formControlName="description" required="">
+          <input class="input-form" type="text" name="author" id="author" placeholder="Author" formControlName="author"
+            required="">
+          <input class="input-form" type="number" name="qtd" id="qtd" placeholder="Amount" formControlName="qtd"
+            required="">
         </div>
       </div>
 
-      <form class="form-page" [formGroup]="bookstoreForm" (submit)="enviar()">
-        <div class="row">
-          <div class="group-row">
-            <label>BookStore</label>
-            <input class="input-form" type="text" name="title" id="title" placeholder="Title" formControlName="title" required="">
-            <input class="input-form" type="text" name="description" id="description" placeholder="Description" formControlName="description" required="">
-            <input class="input-form" type="text" name="author" id="author" placeholder="Author" formControlName="author" required="">
-            <input class="input-form" type="number" name="qtd" id="qtd" placeholder="Amount" formControlName="qtd" required="">
-          </div>
+      <div class="row">
+        <div class="group-row">
+
+          <input type="submit" value="Salvar" class="btn-primary" />
         </div>
+      </div>
 
-        <div class="row">
-          <div class="group-row">
+    </form>
 
-            <input type="submit" value="Salvar" class="btn-primary"/>
-          </div>
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 1" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List Book</div>
+        <div (click)="cadastro()" class="card-menu"> Register Book</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Author</td>
+            <td>Amount</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListBookstore | paginate: config; let i = index"
+              class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <td>{{item.id}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.author}}</td>
+            <td>{{item.qtd}}</td>
+            <td>Edit</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListBookstore">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false"
+            [searchable]="false" class="mostrar-drop">
+            <ng-option [value]="10">10</ng-option>
+            <ng-option [value]="50">50</ng-option>
+            <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+            <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo"
+                [responsive]="true" (pageChange)="mudarPage($event)">
+            </pagination-controls>
         </div>
-
-      </form>
+    </div>
 
     </div>
 
+  </div>
 </div>
