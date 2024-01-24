@@ -56,7 +56,7 @@ export class LoginComponent {
         if (result && result.result && result.result.token) {
           this.authService.setToken(result.result.token)
           this.authService.UsuarioAutenticado(true)
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/bookstore']);
           this.snackBar.open('Login Successful.', 'Close', {
           duration: 2000, // duração em milissegundos (opcional)
         });

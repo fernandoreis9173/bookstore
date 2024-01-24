@@ -41,4 +41,31 @@ export class BookstoreService {
     );
   }
 
+  obterBook(id: number)
+  {
+    return this.httpClient.get(`${this.baseUrl}/book/${id}`);
+  }
+
+  UpdateBook(
+    id: number,
+    title: string,
+    description: string,
+    author: string,
+    qtd: number
+  ) {
+    return this.httpClient
+      .put<any>(`${this.baseUrl}/book/${id}`, {
+        title: title,
+        description: description,
+        author: author,
+        qtd: qtd,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error during registration:', error);
+          return throwError('Something went wrong during registration.');
+        })
+      );
+  }
+
 }

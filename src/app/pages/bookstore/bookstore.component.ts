@@ -62,6 +62,7 @@ export class BookstoreComponent {
   }
 
   getBook(){
+    this.itemEdicao = null;
     this.tipoTela = 1;
 
     this.bookstoreService.getBook()
@@ -89,10 +90,11 @@ export class BookstoreComponent {
     this.menuService.menuSelecionado = 3;
 
     this.configpag();
-    this.getBook();
+
 
     this.bookstoreForm = this.formBuilder.group(
       {
+        id: [''],
         title: ['', [Validators.required]],
         description: ['', [Validators.required]],
         author: ['', [Validators.required]],
@@ -106,25 +108,74 @@ export class BookstoreComponent {
   }
 
   enviar() {
+    if(this.itemEdicao){
+      this.bookstoreService.UpdateBook(
 
-    this.bookstoreService.registerBook(
-      this.bookstoreForm.value.title,
-      this.bookstoreForm.value.description,
-      this.bookstoreForm.value.author,
-      this.bookstoreForm.value.qtd
-    ).subscribe(
-      () => {
-        this.snackBar.open('Registration completed successfully.', 'Close', {
-          duration: 2000,
-        });
-        this.bookstoreForm.reset();
-      },
-      error => {
-        console.error("Erro ao enviar:", error);
-        this.snackBar.open('Registration not completed', 'Close', {
-          duration: 2000,
-        });
-      }
-    );
+        this.bookstoreForm.value.id,
+        this.bookstoreForm.value.title,
+        this.bookstoreForm.value.description,
+        this.bookstoreForm.value.author,
+        this.bookstoreForm.value.qtd
+      ).subscribe(
+        () => {
+          this.snackBar.open('Registry changed successfully.', 'Close', {
+            duration: 2000,
+          });
+          this.bookstoreForm.reset();
+          this.getBook();
+        },
+        error => {
+          console.error("Erro ao enviar:", error);
+          this.snackBar.open('Registry not changed', 'Close', {
+            duration: 2000,
+          });
+        }
+      );
+    }
+    else{
+      this.bookstoreService.registerBook(
+        this.bookstoreForm.value.title,
+        this.bookstoreForm.value.description,
+        this.bookstoreForm.value.author,
+        this.bookstoreForm.value.qtd
+      ).subscribe(
+        () => {
+          this.snackBar.open('Registration completed successfully.', 'Close', {
+            duration: 2000,
+          });
+          this.getBook();
+          this.bookstoreForm.reset();
+        },
+        error => {
+          console.error("Erro ao enviar:", error);
+          this.snackBar.open('Registration not completed', 'Close', {
+            duration: 2000,
+          });
+        }
+      );
+    }
 }
+
+itemEdicao: Bookstore;
+
+edicao(id: number){
+  this.bookstoreService.obterBook(id)
+  .subscribe((response: Bookstore) => {
+    if (response){
+      this.itemEdicao = response;
+      this.tipoTela = 2
+
+      var dados = this.dadosForm;
+      dados["id"].setValue(this.itemEdicao.id);
+      dados["title"].setValue(this.itemEdicao.title);
+      dados["description"].setValue(this.itemEdicao.description);
+      dados["author"].setValue(this.itemEdicao.author);
+      dados["qtd"].setValue(this.itemEdicao.qtd);
+    }
+  },
+  (error) => console.error(error),
+  () => {
+  })
+}
+
 }
