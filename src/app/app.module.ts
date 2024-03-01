@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpStatus, LoaderInterceptor } from './interceptor/loader.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AuthGuard } from './pages/guards/auth-guard.service';
+// import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 const RxJS = [LoaderInterceptor, HttpStatus]
 
@@ -20,6 +21,7 @@ const RxJS = [LoaderInterceptor, HttpStatus]
   declarations: [
     AppComponent,
     LoginComponent,
+    // ConfirmationDialogComponent,
 
   ],
   imports: [

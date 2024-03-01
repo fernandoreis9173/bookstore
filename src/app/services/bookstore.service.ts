@@ -68,4 +68,14 @@ export class BookstoreService {
       );
   }
 
+  deleteBook(bookId: number) {
+    return this.httpClient.delete(`${this.baseUrl}/book/${bookId}`).pipe(
+      catchError((error) => {
+        console.error('Error during deleting book:', error);
+        return throwError('Something went wrong during deleting book.');
+      })
+    );
+  }
 }
+
+

@@ -7,7 +7,8 @@ import { BookstoreRoutingModule } from './bookstore-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule(
@@ -24,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon'
             NgxPaginationModule,
             FormsModule,
             NgSelectModule,
-            MatIconModule
+            MatIconModule,
+            MatDialogModule
         ]
     }
 )

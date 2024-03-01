@@ -5,6 +5,8 @@ import { MenuService } from 'src/app/services/menu.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Bookstore } from 'src/app/models/Bookstore';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component'
 
 @Component({
   selector: 'app-bookstore',
@@ -22,71 +24,72 @@ export class BookstoreComponent {
   paginacao: boolean = true;
   itemsPorPagina: number = 10
 
-  configpag(){
+  configpag() {
     this.id = this.gerarIdParaConfigDePaginacao();
 
-    this.config ={
+    this.config = {
       id: this.id,
       currentPage: this.page,
       itemsPerPage: this.itemsPorPagina
     };
   }
 
-  gerarIdParaConfigDePaginacao(){
+  gerarIdParaConfigDePaginacao() {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for (var i =0; i < 10; i++){
+    for (var i = 0; i < 10; i++) {
       result += characters.charAt(Math.floor(Math.random() *
-      charactersLength));
+        charactersLength));
     }
     return result;
   }
 
 
 
-  cadastro(){
+  cadastro() {
     this.tipoTela = 2;
     this.bookstoreForm.reset();
   }
 
-  mudarItemsPorPage(){
+  mudarItemsPorPage() {
     this.page = 1
     this.config.currentPage = this.page;
     this.config.itemsPorPage = this.itemsPorPagina;
   }
 
-  mudarPage(event: any){
+  mudarPage(event: any) {
     this.page = event;
     this.config.currentPage = this.page;
   }
 
-  getBook(){
+  getBook() {
     this.itemEdicao = null;
     this.tipoTela = 1;
 
     this.bookstoreService.getBook()
-    .subscribe((response: any) =>{
-      if (response.result) {
-        this.tableListBookstore = response.result;
-      } else {
-        console.error('A propriedade "result" não existe no objeto de resposta.');
-      }
+      .subscribe((response: any) => {
+        if (response.result) {
+          this.tableListBookstore = response.result;
+        } else {
+          console.error('A propriedade "result" não existe no objeto de resposta.');
+        }
 
-      this.tableListBookstore = response.result;
-    }, (error) => console.error(error),
-    () => { })
+        this.tableListBookstore = response.result;
+      }, (error) => console.error(error),
+        () => { })
   }
 
   constructor(public menuService: MenuService,
-              public formBuilder: FormBuilder,
-              private bookstoreService: BookstoreService,
-              private snackBar: MatSnackBar){
+    public formBuilder: FormBuilder,
+    private bookstoreService: BookstoreService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) {
   }
 
   bookstoreForm: FormGroup;
 
-  ngOnInit(){
+  ngOnInit() {
     this.menuService.menuSelecionado = 3;
 
     this.configpag();
@@ -103,12 +106,12 @@ export class BookstoreComponent {
     );
   }
 
- get dadosForm(){
+  get dadosForm() {
     return this, this.bookstoreForm.controls;
   }
 
   enviar() {
-    if(this.itemEdicao){
+    if (this.itemEdicao) {
       this.bookstoreService.UpdateBook(
 
         this.bookstoreForm.value.id,
@@ -132,7 +135,7 @@ export class BookstoreComponent {
         }
       );
     }
-    else{
+    else {
       this.bookstoreService.registerBook(
         this.bookstoreForm.value.title,
         this.bookstoreForm.value.description,
@@ -154,28 +157,57 @@ export class BookstoreComponent {
         }
       );
     }
-}
+  }
 
-itemEdicao: Bookstore;
+  itemEdicao: Bookstore;
 
-edicao(id: number){
-  this.bookstoreService.obterBook(id)
-  .subscribe((response: Bookstore) => {
-    if (response){
-      this.itemEdicao = response;
-      this.tipoTela = 2
+  edicao(id: number) {
+    this.bookstoreService.obterBook(id)
+      .subscribe((response: Bookstore) => {
+        if (response) {
+          this.itemEdicao = response;
+          this.tipoTela = 2
 
-      var dados = this.dadosForm;
-      dados["id"].setValue(this.itemEdicao.id);
-      dados["title"].setValue(this.itemEdicao.title);
-      dados["description"].setValue(this.itemEdicao.description);
-      dados["author"].setValue(this.itemEdicao.author);
-      dados["qtd"].setValue(this.itemEdicao.qtd);
-    }
-  },
-  (error) => console.error(error),
-  () => {
-  })
-}
+          var dados = this.dadosForm;
+          dados["id"].setValue(this.itemEdicao.id);
+          dados["title"].setValue(this.itemEdicao.title);
+          dados["description"].setValue(this.itemEdicao.description);
+          dados["author"].setValue(this.itemEdicao.author);
+          dados["qtd"].setValue(this.itemEdicao.qtd);
+        }
+      },
+        (error) => console.error(error),
+        () => {
+        })
+  }
+
+  onDeleteBook(id: number) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '250px',
+      data: 'Are you sure you want to delete this book?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        console.log("chegou bem aqui");
+        this.bookstoreService.deleteBook(id)
+        .subscribe(() => {
+          this.snackBar.open('Registration deleted successfully.', 'Close', {
+            duration: 2000,
+          });
+          this.getBook();
+          this.bookstoreForm.reset();
+        },
+          error => {
+            console.error("Erro ao enviar:", error);
+            this.snackBar.open('Registration not deleted', 'Close', {
+              duration: 2000,
+            });
+          }
+        );
+      }
+    });
+
+    
+  }
 
 }
