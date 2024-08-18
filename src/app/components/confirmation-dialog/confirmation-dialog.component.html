@@ -1,7 +1,17 @@
-<div>
-    <p>Deseja realmente deletar?</p>
-</div>
-  <div align="end">
-    <button mat-button (click)="closeDialog()">Cancelar</button>
-    <button mat-button color="warn" (click)="confirmDelete()">Confirmar</button>
-</div>
+<h2 mat-dialog-title>Tem certeza que deseja deletar?</h2>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" mat-dialog-close (click)="closeDialog()">Cancelar</button>
+    <button mat-raised-button color="warn" [mat-dialog-close]="true" (click)="confirmDelete()">Confirmar</button>
+  </mat-dialog-actions>
+
+<!-- <section>
+  <div class="example-label">Raised</div>
+  <div class="example-button-row">
+    <button mat-raised-button>Basic</button>
+    <button mat-raised-button color="primary">Primary</button>
+    <button mat-raised-button color="accent">Accent</button>
+    <button mat-raised-button color="warn">Warn</button>
+    <button mat-raised-button disabled>Disabled</button>
+    <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
+  </div>
+</section> -->

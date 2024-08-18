@@ -13,7 +13,7 @@
       <div class="row">
         <div class="group-row">
           <label>BookStore</label>
-          <input class="input-form" type="text" name="title" id="title" placeholder="Title" formControlName="title"
+          <input  class="input-form" type="text" name="title" id="title" placeholder="Title" formControlName="title"
             required="">
           <input class="input-form" type="text" name="description" id="description" placeholder="Description"
             formControlName="description" required="">
@@ -25,9 +25,10 @@
       </div>
 
       <div class="row">
-        <div class="group-row">
+        <div class="group-row" style="display: flex; margin: 5px;">
 
-          <input type="submit" value="Salvar" class="btn-primary" />
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn" (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
         </div>
       </div>
 
@@ -50,25 +51,23 @@
       <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
-            <td>ID</td>
-            <td>Title</td>
-            <td>Description</td>
-            <td>Author</td>
-            <td>Amount</td>
-            <td>Action</td>
+            <td>TITLE</td>
+            <td>DESCRIPTION</td>
+            <td>AUTHOR</td>
+            <td>AMOUNT</td>
+            <td>ACTION</td>
           </tr>
         </thead>
         <tbody>
           <tr class="select-item" *ngFor="let item of tableListBookstore | paginate: config; let i = index"
               class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
-            <td>{{item.id}}</td>
             <td>{{item.title}}</td>
             <td>{{item.description}}</td>
             <td>{{item.author}}</td>
             <td>{{item.qtd}}</td>
             <td >
-              <mat-icon (click)="edicao(item.id)">edit</mat-icon>
-              <mat-icon (click)="onDeleteBook(item.id)">delete</mat-icon>
+              <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteBook(item.id)" style="margin: 5px;">delete</mat-icon>
             </td>
             <!-- <td (click)="edicao(item.id)" >Edit</td> -->
           </tr>

@@ -90,6 +90,7 @@ export class BookstoreComponent {
   bookstoreForm: FormGroup;
 
   ngOnInit() {
+    this.getBook();
     this.menuService.menuSelecionado = 3;
 
     this.configpag();
@@ -160,7 +161,6 @@ export class BookstoreComponent {
   }
 
   itemEdicao: Bookstore;
-
   edicao(id: number) {
     this.bookstoreService.obterBook(id)
       .subscribe((response: Bookstore) => {
@@ -179,6 +179,9 @@ export class BookstoreComponent {
         (error) => console.error(error),
         () => {
         })
+  }
+  cancelarEdicao(): void {
+    this.getBook();
   }
 
   onDeleteBook(id: number) {
