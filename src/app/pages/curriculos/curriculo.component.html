@@ -1,0 +1,171 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div *ngIf="tipoTela == 2" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register Curriculos</div>
+      <div (click)="getCurriculo()" class="card-menu">List curriculos</div>
+    </div>
+
+    <form class="form-page" [formGroup]="curriculoForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>Curriculos</label>
+          <div class="nameIdade">
+            <input  class="input-form" type="text" name="nome" id="nome" placeholder="Nome" formControlName="nome"
+            required="">
+          <input class="input-form" type="text" name="idade" id="idade" placeholder="Idade"
+            formControlName="idade" required="">
+          </div>
+
+          <div class="enderecos">
+            <input class="input-form" type="text" name="endereco" id="endereco" placeholder="Endereço" formControlName="endereco"
+            required="">
+          <input class="input-form" type="text" name="bairro" id="bairro" placeholder="Bairro" formControlName="bairro"
+            required="">
+            <input class="input-form" type="text" name="cidade" id="cidade" placeholder="Cidade" formControlName="cidade"
+            required="">
+            <input class="input-form" type="text" name="proximo" id="proximo" placeholder="Proximo" formControlName="proximo"
+            required="">
+            <input class="input-form" type="text" name="estado" id="estado" placeholder="Estado" formControlName="estado"
+            required="">
+            <input class="input-form" type="text" name="tempoMoradia" id="tempoMoradia" placeholder="Quanto tempo mora no endereço?" formControlName="tempoMoradia"
+            required="">
+            <input class="input-form" type="text" name="tempocidade" id="tempocidade" placeholder="Quanto tempo mora na cidade?" formControlName="tempocidade"
+            required="">
+            <input class="input-form" type="text" name="moradiaAntes" id="moradiaAntes" placeholder="Cidade e Estado que morava" formControlName="moradiaAntes"
+            required="">
+            <input class="input-form" type="text" name="casaPropria" id="casaPropria" placeholder="Tem casa própria?" formControlName="casaPropria"
+            required="">
+            <input class="input-form" type="text" name="valorAluguel" id="valorAluguel" placeholder="Quanto paga de aluguel" formControlName="valorAluguel"
+            required="">
+          </div>
+
+          <div class="inforPessoais">
+            <input  class="input-form" type="text" name="telefone" id="telefone" placeholder="Fone" formControlName="telefone"
+            required="">
+          <input class="input-form" type="text" name="celular" id="celular" placeholder="Celular"
+            formControlName="celular" required="">
+            <input  class="input-form" type="text" name="foneRecador" id="foneRecador" placeholder="Fone Recado" formControlName="foneRecador"
+            required="">
+            <input  class="input-form" type="text" name="localNascimento" id="localNascimento" placeholder="Local de nascimento" formControlName="localNascimento"
+            required="">
+            <input  class="input-form" type="text" name="dataNascimento" id="dataNascimento" placeholder="Data de nascimento" formControlName="dataNascimento"
+            required="">
+            <input  class="input-form" type="text" name="rg" id="rg" placeholder="RG" formControlName="rg"
+            required="">
+            <input  class="input-form" type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="Orgão emissor" formControlName="orgaoEmissor"
+            required="">
+            <input  class="input-form" type="text" name="rgestado" id="rgestado" placeholder="Estado de expedição" formControlName="rgestado"
+            required="">
+            <input  class="input-form" type="text" name="dataEmissao" id="dataEmissao" placeholder="Data de expedição" formControlName="dataEmissao"
+            required="">
+            <input  class="input-form" type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf"
+            required="">
+            <input  class="input-form" type="text" name="tituloEleitor" id="tituloEleitor" placeholder="Titulo de Eleitor" formControlName="tituloEleitor"
+            required="">
+            <input  class="input-form" type="text" name="zonaEleitoral" id="zonaEleitoral" placeholder="Zona" formControlName="zonaEleitoral"
+            required="">
+            <input  class="input-form" type="text" name="secaoEleitoral" id="secaoEleitoral" placeholder="Seção" formControlName="secaoEleitoral"
+            required="">
+            <input  class="input-form" type="text" name="numeroCarteiraProfissional" id="numeroCarteiraProfissional" placeholder="Nº Carteira Profissional" formControlName="numeroCarteiraProfissional"
+            required="">
+            <input  class="input-form" type="text" name="serieCarteiraProfissional" id="serieCarteiraProfissional" placeholder="série Carteira Profissional" formControlName="serieCarteiraProfissional"
+            required="">
+            <input  class="input-form" type="text" name="ufCarteiraProfissional" id="ufCarteiraProfissional" placeholder="Estado da Carteira Profissional" formControlName="ufCarteiraProfissional"
+            required="">
+            <input  class="input-form" type="text" name="numeroCarteiraMotorista" id="numeroCarteiraMotorista" placeholder="Nº Carteira de motorista" formControlName="numeroCarteiraMotorista"
+            required="">
+            <input  class="input-form" type="text" name="categoria" id="categoria" placeholder="Categoria" formControlName="categoria"
+            required="">
+            <input  class="input-form" type="text" name="pis" id="pis" placeholder="PIS" formControlName="pis"
+            required="">
+            <input  class="input-form" type="text" name="nomePais" id="nomePais" placeholder="Nome do Pai" formControlName="nomePais"
+            required="">
+            <input  class="input-form" type="text" name="nomeMae" id="nomeMae" placeholder="Nome do Mãe" formControlName="nomeMae"
+            required="">
+            <input  class="input-form" type="text" name="filhos" id="filhos" placeholder="Tem Filhos" formControlName="filhos"
+            required="">
+            <input  class="input-form" type="text" name="idadeFilhos" id="idadeFilhos" placeholder="Idade Filhos" formControlName="idadeFilhos"
+            required="">
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="group-row" style="display: flex; margin: 5px;">
+
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn" (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 1" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List Curriculos</div>
+        <div (click)="cadastro()" class="card-menu"> Register Curriculos</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>NOME</td>
+            <td>CELULAR</td>
+            <td>ESTADO</td>
+            <td>CIDADE</td>
+            <td>BAIRRO</td>
+            <td>CPF</td>
+            <td>ACTION</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListCurriculo | paginate: config; let i = index"
+              class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <td>{{item.nome}}</td>
+            <td>{{item.celular}}</td>
+            <td>{{item.estado}}</td>
+            <td>{{item.cidade}}</td>
+            <td>{{item.bairro}}</td>
+            <td>{{item.cpf}}</td>
+            <td >
+              <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteCurriculo(item.id)" style="margin: 5px;">delete</mat-icon>
+            </td>
+            <!-- <td (click)="edicao(item.id)" >Edit</td> -->
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListCurriculo">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false"
+            [searchable]="false" class="mostrar-drop">
+            <ng-option [value]="10">10</ng-option>
+            <ng-option [value]="50">50</ng-option>
+            <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+            <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo"
+                [responsive]="true" (pageChange)="mudarPage($event)">
+            </pagination-controls>
+        </div>
+    </div>
+
+    </div>
+
+  </div>
+</div>

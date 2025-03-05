@@ -1,0 +1,32 @@
+export class Informacoes {
+  id: string;
+  pqJobAgencia: boolean;
+  pqIndicar: string;
+  oqFazMelhor: boolean;
+  gostaLavarRoupa: string;
+  sabePassarRoupa: string;
+  gostaLimpeza: string;
+  comoLimpa: string;
+  gostaCozinhar: string;
+  oqCozinha: string;
+  gostaCrianca: string;
+  religiao: string;
+  pernoite: string;
+  morarEmprego: string;
+  empregoAtual: string;
+  gostaAnimal: string;
+  alergiaAnimal: string;
+  fuma: string;
+  diabetes: string;
+  hipertensao: string;
+  depressao: string;
+  colesterol: string;
+  problemaCardiaco: string;
+  problemaColuna: string;
+  visaoAudicao: string;
+  alergiaOutros: string;
+  examesQuais: string;
+  uniforme: string;
+  trabalharOutraCidade: string;
+  curriculoId: number;
+}

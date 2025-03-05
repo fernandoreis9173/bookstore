@@ -20,8 +20,24 @@ export class SidebarComponent {
         this.router.navigate(['/users']);
         break;
 
-      case 3:
-        this.router.navigate(['/bookstore']);
+      // case 3:
+      //   this.router.navigate(['/bookstore']);
+      //   break;
+
+      // case 4:
+      //   this.router.navigate(['/categories']);
+      //   break;
+
+        case 3:
+        this.router.navigate(['/curriculos']);
+        break;
+
+        case 4:
+        this.router.navigate(['/partners']);
+        break;
+
+        case 5:
+        this.router.navigate(['/agendamento']);
         break;
 
       default:

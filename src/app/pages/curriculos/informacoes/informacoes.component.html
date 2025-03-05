@@ -1,0 +1,263 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div *ngIf="tipoTela == 1" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register Informacoes</div>
+      <!-- <div (click)="getInformacoes()" class="card-menu">List Informacoes</div> -->
+    </div>
+
+    <form class="form-page" [formGroup]="InformacoesForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>Informacoes</label>
+
+          <div class="informacoesBase">
+            <input class="input-form" type="text" name="pqJobAgencia" id="pqJobAgencia"
+              placeholder="Porque você busca um emprego na Agência ?" formControlName="pqJobAgencia" required="">
+            <input class="input-form" type="text" name="pqIndicar" id="pqIndicar" placeholder="Porque devemos Indicá-la"
+              formControlName="pqIndicar" required="">
+            <input class="input-form" type="text" name="oqFazMelhor" id="oqFazMelhor" placeholder="O que faz de melhor?"
+              formControlName="oqFazMelhor" required="">
+          </div>
+
+          <div class="nameIdade justify-content-between d-flex">
+            <div>
+              <label for="gostaLavarRoupa" class="m-3">Gosta de lavar e passar roupas?</label>
+              <select class="input-form" name="gostaLavarRoupa" id="gostaLavarRoupa" formControlName="gostaLavarRoupa"
+                required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="sabePassarRoupa">Sabe Passar Roupas?</label>
+              <select class="input-form" name="sabePassarRoupa" id="sabePassarRoupa" formControlName="sabePassarRoupa"
+                required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="enderecos">
+            <label for="gostaLimpeza">Gosta de limpeza?</label>
+            <select class="input-form" name="gostaLimpeza" id="gostaLimpeza" formControlName="gostaLimpeza" required
+              style="margin: 5px;">
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="comoLimpa" id="comoLimpa" placeholder="Como é sua limpeza?"
+              formControlName="comoLimpa" required="">
+          </div>
+
+          <div>
+            <label for="fundamCompleto">Gosta de Cozinhar</label>
+            <select class="input-form" name="gostaCozinhar" id="gostaCozinhar" formControlName="gostaCozinhar" required
+              style="margin: 5px;">
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="oqCozinha" id="oqCozinha" placeholder="O que sabe cozinhar?"
+              formControlName="oqCozinha" required="">
+          </div>
+
+          <div>
+            <label for="fundamCompleto">Gosta de criança?</label>
+            <select class="input-form" name="gostaCrianca" id="gostaCrianca" formControlName="gostaCrianca" required
+              style="margin: 5px;">
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="religiao" id="religiao"
+              placeholder="Qual sua Religião e Igreja que você frequenta?" formControlName="religiao" required="">
+          </div>
+
+          <div class="pernoites">
+            <label for="pernoite">Pode pernoitar?</label>
+            <select class="input-form" name="pernoite" id="pernoite" formControlName="pernoite" required
+              style="margin: 5px;">
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="morarEmprego" id="morarEmprego"
+              placeholder="Pode Morar no emprego?" formControlName="morarEmprego" required="">
+            <input class="input-form" type="text" name="empregoAtual" id="empregoAtual"
+              placeholder="No momento você esta empregada ou desempregada?" formControlName="empregoAtual" required="">
+          </div>
+
+          <div class="animais" style="display: flex; justify-content: normal;">
+            <div style="margin-right: 30px;">
+              <label for="gostaAnimal">Gosta de animais?</label>
+              <select class="input-form" name="gostaAnimal" id="gostaAnimal" formControlName="gostaAnimal" required
+                style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+            <div>
+              <label for="gostaAnimal">Tem Alergia a Animais?</label>
+              <select class="input-form" name="alergiaAnimal" id="alergiaAnimal" formControlName="alergiaAnimal"
+                required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pessoais" style=" justify-content: normal;">
+            <div style="margin-right: 30px;">
+              <label for="fuma">Você fuma?</label>
+              <select class="input-form" name="fuma" id="fuma" formControlName="fuma" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="diabetes">Diabetes?</label>
+              <select class="input-form" name="diabetes" id="diabetes" formControlName="diabetes" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="hipertensao">Hipertensão?</label>
+              <select class="input-form" name="hipertensao" id="hipertensao" formControlName="hipertensao" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+
+            <div style="margin-right: 30px;">
+              <label for="depressao">Depressão?</label>
+              <select class="input-form" name="depressao" id="depressao" formControlName="depressao" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="colesterol">Colestorol alto?</label>
+              <select class="input-form" name="colesterol" id="colesterol" formControlName="colesterol" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="problemaCardiaco">Problemas Cardíacos?</label>
+              <select class="input-form" name="problemaCardiaco" id="problemaCardiaco"
+                formControlName="problemaCardiaco" required required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+
+            <div style="margin-right: 30px;">
+              <label for="problemaColuna">Problemas de coluna?</label>
+              <select class="input-form" name="problemaColuna" id="problemaColuna" formControlName="problemaColuna"
+                required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="visaoAudicao">Problemas de Visão e Audição?</label>
+              <select class="input-form" name="visaoAudicao" id="visaoAudicao" formControlName="visaoAudicao" required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+
+              <label for="alergiaOutros">Alergias de Alimento ou Produtos de limpeza?</label>
+              <select class="input-form" name="alergiaOutros" id="alergiaOutros" formControlName="alergiaOutros"
+                required style="margin: 5px;">
+                <option [value]="true">Sim</option>
+                <option [value]="false">Não</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="exames">
+            <input class="input-form" type="text" name="examesQuais" id="examesQuais"
+              placeholder="Quando fez exames médicos e quais?" formControlName="examesQuais" required="">
+            <input class="input-form" type="text" name="uniforme" id="uniforme"
+              placeholder="Aceita usar uniforme ou avental?" formControlName="uniforme" required="">
+            <input class="input-form" type="text" name="trabalharOutraCidade" id="trabalharOutraCidade"
+              placeholder="Pode trabalhar em outra cidade?" formControlName="trabalharOutraCidade" required="">
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="group-row" style="display: flex; margin: 5px;">
+
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn"
+            (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 2" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List Informacoes</div>
+        <div (click)="cadastro()" class="card-menu"> Register Informacoes</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>NOME</td>
+            <td>CELULAR</td>
+            <td>ESTADO</td>
+            <td>CIDADE</td>
+            <td>BAIRRO</td>
+            <td>CPF</td>
+            <td>ACTION</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListInformacoes | paginate: config; let i = index"
+            class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <!-- <td>{{item.nome}}</td>
+            <td>{{item.celular}}</td>
+            <td>{{item.estado}}</td>
+            <td>{{item.cidade}}</td>
+            <td>{{item.bairro}}</td>
+            <td>{{item.cpf}}</td> -->
+            <td>
+              <!-- <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteInformacoes(item.id)" style="margin: 5px;">delete</mat-icon> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListInformacoes">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="50">50</ng-option>
+          <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+          <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
+          </pagination-controls>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

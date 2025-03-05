@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BookstoreService } from 'src/app/services/bookstore.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Bookstore } from 'src/app/models/Bookstore';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component'
+import { Agendamento } from'src/app/models/agendamento';
+import { AgendamentoService } from 'src/app/services/agendamento.service';
 
 @Component({
-  selector: 'app-bookstore',
-  templateUrl: './bookstore.component.html',
-  styleUrls: ['./bookstore.component.scss']
+  selector: 'app-agendamento',
+  templateUrl: './agendamento.component.html',
+  styleUrls: ['./agendamento.component.scss']
 })
-export class BookstoreComponent {
+export class AgendamentoComponent {
 
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
-  tableListBookstore: Array<Bookstore>
+  tableListAgendamento: Array<Agendamento>
   id: string;
 
   page: number = 1;
@@ -49,7 +49,7 @@ export class BookstoreComponent {
 
   cadastro() {
     this.tipoTela = 2;
-    this.bookstoreForm.reset();
+    this.agendamentoForm.reset();
   }
 
   mudarItemsPorPage() {
@@ -63,95 +63,103 @@ export class BookstoreComponent {
     this.config.currentPage = this.page;
   }
 
-  getBook() {
+  getAgendamento() {
     this.itemEdicao = null;
     this.tipoTela = 1;
 
-    this.bookstoreService.getBook()
+    this.agendamentoService.getAgendamento()
       .subscribe((response: any) => {
         if (response.result) {
-          this.tableListBookstore = response.result;
+          this.tableListAgendamento = response.result;
         } else {
           console.error('A propriedade "result" não existe no objeto de resposta.');
         }
 
-        this.tableListBookstore = response.result;
+        this.tableListAgendamento = response.result;
       }, (error) => console.error(error),
         () => { })
   }
 
   constructor(public menuService: MenuService,
     public formBuilder: FormBuilder,
-    private bookstoreService: BookstoreService,
+    private agendamentoService: AgendamentoService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog) {
   }
 
-  bookstoreForm: FormGroup;
+  agendamentoForm: FormGroup;
 
   ngOnInit() {
-    this.getBook();
+    this.getAgendamento();
     this.menuService.menuSelecionado = 3;
 
     this.configpag();
 
 
-    this.bookstoreForm = this.formBuilder.group(
+    this.agendamentoForm = this.formBuilder.group(
       {
         id: [''],
-        title: ['', [Validators.required]],
-        description: ['', [Validators.required]],
-        author: ['', [Validators.required]],
-        qtd: ['', [Validators.required]]
+        nomeEmpregada: ['', [Validators.required]],
+        turnoHora: ['', [Validators.required]],
+        cnpj: ['', [Validators.required]],
+        nomePatraos: ['', [Validators.required]],
+        dataInicial: ['', [Validators.required]],
+        dataFinal: ['', [Validators.required]],
+        localizacao: ['', [Validators.required]],
+        receita: ['', [Validators.required]],
+        despesas: ['', [Validators.required]],
       }
     );
   }
 
   get dadosForm() {
-    return this, this.bookstoreForm.controls;
+    return this, this.agendamentoForm.controls;
   }
 
   enviar() {
-    if (this.itemEdicao) {
-      this.bookstoreService.UpdateBook(
+    const { id, ...parceiroData } = {
+      id: this.agendamentoForm.value.id,
+      nomeEmpregada: this.agendamentoForm.value.nomeEmpregada,
+      turnoHora: this.agendamentoForm.value.turnoHora,
+      cnpj: this.agendamentoForm.value.cnpj,
+      nomePatraos: this.agendamentoForm.value.nomePatraos,
+      dataInicial: this.agendamentoForm.value.dataInicial,
+      dataFinal: this.agendamentoForm.value.dataFinal,
+      localizacao: this.agendamentoForm.value.localizacao,
+      receita: this.agendamentoForm.value.receita,
+      despesas: this.agendamentoForm.value.despesas,
+    };
 
-        this.bookstoreForm.value.id,
-        this.bookstoreForm.value.title,
-        this.bookstoreForm.value.description,
-        this.bookstoreForm.value.author,
-        this.bookstoreForm.value.qtd
-      ).subscribe(
+    const obj = this.itemEdicao ? { id, ...parceiroData } : parceiroData;
+
+    if (this.itemEdicao) {
+      this.agendamentoService.UpdateAgendamento(obj).subscribe(
         () => {
           this.snackBar.open('Registry changed successfully.', 'Close', {
             duration: 2000,
           });
-          this.bookstoreForm.reset();
-          this.getBook();
+          this.agendamentoForm.reset();
+          this.getAgendamento();
         },
-        error => {
-          console.error("Erro ao enviar:", error);
+        (error) => {
+          console.error('Erro ao enviar:', error);
           this.snackBar.open('Registry not changed', 'Close', {
             duration: 2000,
           });
         }
       );
-    }
-    else {
-      this.bookstoreService.registerBook(
-        this.bookstoreForm.value.title,
-        this.bookstoreForm.value.description,
-        this.bookstoreForm.value.author,
-        this.bookstoreForm.value.qtd
-      ).subscribe(
-        () => {
+    } else {
+      this.agendamentoService.registerAgendamento(obj).subscribe(
+        (response: any) => { // O backend deve retornar o ID cadastrado
           this.snackBar.open('Registration completed successfully.', 'Close', {
             duration: 2000,
           });
-          this.getBook();
-          this.bookstoreForm.reset();
+
+          this.getAgendamento();
+          this.agendamentoForm.reset();
         },
-        error => {
-          console.error("Erro ao enviar:", error);
+        (error) => {
+          console.error('Erro ao enviar:', error);
           this.snackBar.open('Registration not completed', 'Close', {
             duration: 2000,
           });
@@ -160,20 +168,25 @@ export class BookstoreComponent {
     }
   }
 
-  itemEdicao: Bookstore;
+  itemEdicao: Agendamento;
   edicao(id: number) {
-    this.bookstoreService.obterBook(id)
-      .subscribe((response: Bookstore) => {
+    this.agendamentoService.obterAgendamento(id)
+      .subscribe((response: Agendamento) => {
         if (response) {
           this.itemEdicao = response;
           this.tipoTela = 2
 
           var dados = this.dadosForm;
           dados["id"].setValue(this.itemEdicao.id);
-          dados["title"].setValue(this.itemEdicao.title);
-          dados["description"].setValue(this.itemEdicao.description);
-          dados["author"].setValue(this.itemEdicao.author);
-          dados["qtd"].setValue(this.itemEdicao.qtd);
+          dados["nomeEmpregada"].setValue(this.itemEdicao.nomeEmpregada);
+          dados["turnoHora"].setValue(this.itemEdicao.turnoHora);
+          dados["cnpj"].setValue(this.itemEdicao.cnpj);
+          dados["nomePatraos"].setValue(this.itemEdicao.nomePatraos);
+          dados["dataInicial"].setValue(this.itemEdicao.dataInicial);
+          dados["dataFinal"].setValue(this.itemEdicao.dataFinal);
+          dados["localizacao"].setValue(this.itemEdicao.localizacao);
+          dados["receita"].setValue(this.itemEdicao.receita);
+          dados["despesas"].setValue(this.itemEdicao.despesas);
         }
       },
         (error) => console.error(error),
@@ -181,23 +194,23 @@ export class BookstoreComponent {
         })
   }
   cancelarEdicao(): void {
-    this.getBook();
+    this.getAgendamento();
   }
 
-  onDeleteBook(id: number) {
+  onDeleteAgendamento(id: number) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '250px',
-      data: 'Are you sure you want to delete this book?'
+      data: 'Are you sure you want to delete this Agendamento?'
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.bookstoreService.deleteBook(id)
+        this.agendamentoService.deleteAgendamento(id)
         .subscribe(() => {
           this.snackBar.open('Registration deleted successfully.', 'Close', {
             duration: 2000,
           });
-          this.getBook();
-          this.bookstoreForm.reset();
+          this.getAgendamento();
+          this.agendamentoForm.reset();
         },
           error => {
             console.error("Erro ao enviar:", error);

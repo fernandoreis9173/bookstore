@@ -15,8 +15,7 @@ export class LoginService {
     private readonly baseUrl = environment["endPoint"];
 
     login(username: string, password: string) {
-      console.log("o que tem aqui?",`${this.baseUrl}/auth/login` );
-      
+
         return this.httpClient.post<any>(`${this.baseUrl}/auth/login`, { username: username, password: password }).pipe(
           catchError((error) => {
             console.error('Error during login:', error);

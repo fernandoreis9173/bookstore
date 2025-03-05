@@ -1,2 +1,46 @@
 <navbar></navbar>
 <sidebar></sidebar>
+
+<div *ngIf="tipoTela == 1" class="container-base">
+
+  <div class="content-page">
+
+    <div class="d-flex">
+      <div class="card text-center m-5" id="cardCurriculo" style="width: 50%;">
+        <div class="card-body">
+          <h5 class="card-title">Curriculos Cadastrados</h5>
+          <p class="card-text" id="NumeroCard">{{this.totalCurriculo}}</p>
+        </div>
+      </div>
+
+      <div class="card text-center m-5" id="cardService" style="width: 50%;">
+        <div class="card-body">
+          <h5 class="card-title">Serviços Efetivados</h5>
+          <p class="card-text" id="NumeroCard">70</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="d-flex">
+      <div class="card text-center m-5" id="cardCurriculoOnline" style="width: 50%;">
+        <div class="card-body">
+          <h5 class="card-title">Curriculos Online</h5>
+          <p class="card-text" id="NumeroCard">70</p>
+        </div>
+      </div>
+
+      <div class="card text-center m-5" id="cardFinance" style="width: 50%;">
+        <div class="card-body">
+          <h5 class="card-title">Financeiro</h5>
+          <p class="card-text" id="NumeroCard">70</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+

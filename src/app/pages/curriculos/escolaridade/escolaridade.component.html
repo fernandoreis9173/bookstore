@@ -1,0 +1,137 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div *ngIf="tipoTela == 1" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register Escolaridade</div>
+      <!-- <div (click)="getEscolaridade()" class="card-menu">List escolaridade</div> -->
+    </div>
+
+    <form class="form-page" [formGroup]="EscolaridadeForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>Escolaridade</label>
+          <div class="nameIdade">
+            <label for="fundamCompleto">Ensino Fundamental Completo?</label>
+            <select class="input-form" name="fundamCompleto" id="fundamCompleto" formControlName="fundamCompleto"
+              required>
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="serieFundamental" id="serieFundamental"
+              placeholder="Série Ensino Fundamental" formControlName="serieFundamental" required="">
+          </div>
+
+          <div class="enderecos">
+            <label for="fundamCompleto">Curso de Ensino Médio?</label>
+            <select class="input-form" name="medioCompleto" id="medioCompleto" formControlName="medioCompleto"
+              required>
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="serieMedio" id="serieMedio" placeholder="Série Ensino Médio"
+              formControlName="serieMedio" required="">
+            </div>
+
+              <div>
+                <label for="fundamCompleto">Curso Superior</label>
+            <select class="input-form" name="superior" id="superior" formControlName="superior"
+              required>
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="cursoSuperior" id="cursoSuperior"
+              placeholder="Qual curso superior?" formControlName="cursoSuperior" required="">
+            </div>
+
+              <div>
+                <label for="fundamCompleto">Pretende fazer?</label>
+            <select class="input-form" name="pretendeCursar" id="pretendeCursar" formControlName="pretendeCursar"
+              required>
+              <option [value]="true">Sim</option>
+              <option [value]="false">Não</option>
+            </select>
+            <input class="input-form" type="text" name="horario" id="horario" placeholder="Qual horario?"
+              formControlName="horario" required="">
+            <input class="input-form" type="text" name="local" id="local" placeholder="Local" formControlName="local"
+              required="">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="group-row" style="display: flex; margin: 5px;">
+
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn"
+            (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 2" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List Escolaridade</div>
+        <div (click)="cadastro()" class="card-menu"> Register Escolaridade</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>NOME</td>
+            <td>CELULAR</td>
+            <td>ESTADO</td>
+            <td>CIDADE</td>
+            <td>BAIRRO</td>
+            <td>CPF</td>
+            <td>ACTION</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListEscolaridade | paginate: config; let i = index"
+            class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <!-- <td>{{item.nome}}</td>
+            <td>{{item.celular}}</td>
+            <td>{{item.estado}}</td>
+            <td>{{item.cidade}}</td>
+            <td>{{item.bairro}}</td>
+            <td>{{item.cpf}}</td> -->
+            <td>
+              <!-- <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteEscolaridade(item.id)" style="margin: 5px;">delete</mat-icon> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListEscolaridade">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="50">50</ng-option>
+          <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+          <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
+          </pagination-controls>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

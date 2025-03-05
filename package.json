@@ -25,6 +25,7 @@
     "@mui/material": "^5.15.11",
     "@mui/styled-engine-sc": "^6.0.0-alpha.17",
     "@ng-select/ng-select": "^11.0.0",
+    "bootstrap": "^5.3.3",
     "mat-icon-import": "^0.1.1",
     "moment": "^2.29.4",
     "ngx-device-detector": "^6.0.1",

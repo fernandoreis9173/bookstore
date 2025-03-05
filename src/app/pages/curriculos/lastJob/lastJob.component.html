@@ -1,0 +1,127 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div *ngIf="tipoTela == 1" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register LastJob</div>
+      <!-- <div (click)="getLastJob()" class="card-menu">List lastJob</div> -->
+    </div>
+
+    <form class="form-page" [formGroup]="LastJobForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>Ultimo emprego</label>
+          <div class="nameIdade">
+            <input class="input-form" type="text" name="ultimoEmprego" id="ultimoEmprego"
+              placeholder="Nome do último emprego" formControlName="ultimoEmprego" required="">
+          </div>
+
+          <div class="enderecos">
+            <input class="input-form" type="text" name="endereco" id="endereco" placeholder="Endereço"
+              formControlName="endereco" required="">
+              <input class="input-form" type="text" name="cidade" id="cidade" placeholder="Cidade"
+              formControlName="cidade" required="">
+              <input class="input-form" type="text" name="telefone" id="telefone" placeholder="Telefone"
+              formControlName="telefone" required="">
+              <input class="input-form" type="text" name="celular" id="celular" placeholder="Contato"
+              formControlName="celular" required="">
+            </div>
+
+              <div>
+            <input class="input-form" type="text" name="funcao" id="funcao"
+              placeholder="Função" formControlName="funcao" required="">
+              <input class="input-form" type="text" name="tempoDeTrabalho" id="tempoDeTrabalho"
+              placeholder="Quanto tempo trabalhou" formControlName="tempoDeTrabalho" required="">
+              <input class="input-form" type="text" name="assinouCarteira" id="assinouCarteira"
+              placeholder="Assinou Carteira" formControlName="assinouCarteira" required="">
+            </div>
+
+            <div>
+              <input class="input-form" type="text" name="dataEntrada" id="dataEntrada"
+                placeholder="Data de entrada" formControlName="dataEntrada" required="">
+                <input class="input-form" type="text" name="dataSaida" id="dataSaida"
+                placeholder="Data de saída" formControlName="dataSaida" required="">
+                <input class="input-form" type="text" name="motivoSaida" id="motivoSaida"
+                placeholder="Motivo da saída" formControlName="motivoSaida" required="">
+              </div>
+
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="group-row" style="display: flex; margin: 5px;">
+
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn"
+            (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 2" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List LastJob</div>
+        <div (click)="cadastro()" class="card-menu"> Register LastJob</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>NOME</td>
+            <td>CELULAR</td>
+            <td>ESTADO</td>
+            <td>CIDADE</td>
+            <td>BAIRRO</td>
+            <td>CPF</td>
+            <td>ACTION</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListLastJob | paginate: config; let i = index"
+            class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <!-- <td>{{item.nome}}</td>
+            <td>{{item.celular}}</td>
+            <td>{{item.estado}}</td>
+            <td>{{item.cidade}}</td>
+            <td>{{item.bairro}}</td>
+            <td>{{item.cpf}}</td> -->
+            <td>
+              <!-- <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteLastJob(item.id)" style="margin: 5px;">delete</mat-icon> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListLastJob">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="50">50</ng-option>
+          <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+          <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
+          </pagination-controls>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

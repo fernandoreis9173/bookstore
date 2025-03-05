@@ -1,0 +1,108 @@
+<navbar></navbar>
+<sidebar></sidebar>
+
+
+<div *ngIf="tipoTela == 2" class="container-base">
+  <div class="content-page">
+    <div class="card-header">
+      <div class="card-title">Register Parceiros</div>
+      <div (click)="getParceiros()" class="card-menu">List Parceiros</div>
+    </div>
+
+    <form class="form-page" [formGroup]="parceirosForm" (submit)="enviar()">
+      <div class="row">
+        <div class="group-row">
+          <label>Parceiros</label>
+          <input  class="input-form" type="text" name="nameEmpresa" id="nameEmpresa" placeholder="Nome da Empresa" formControlName="nameEmpresa"
+            required="">
+          <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ"
+            formControlName="cnpj" required="">
+          <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="localização" formControlName="localizacao"
+            required="">
+          <input class="input-form" type="text" name="foneComercial" id="foneComercial" placeholder="Fone Comercial" formControlName="foneComercial"
+            required="">
+            <input class="input-form" type="text" name="celular" id="celular" placeholder="Celular" formControlName="celular"
+            required="">
+            <input class="input-form" type="text" name="requisito" id="requisito" placeholder="Requisito" formControlName="requisito"
+            required="">
+            <input class="input-form" type="text" name="turno" id="turno" placeholder="Turno" formControlName="turno"
+            required="">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="group-row" style="display: flex; margin: 5px;">
+
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn" (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<div *ngIf="tipoTela == 1" class="container-base">
+
+  <div class="content-page">
+
+    <div class="header-info-2">
+      <div class="card-header">
+        <div class="card-title"> List Parceiros</div>
+        <div (click)="cadastro()" class="card-menu"> Register Parceiros</div>
+      </div>
+
+      <table cellSpacing="0" cellPadding="0">
+        <thead>
+          <tr>
+            <td>NOME DA EMPRESA</td>
+            <td>CNPJ</td>
+            <td>LOCALIZAÇÃO</td>
+            <td>FONE COMERCIAL</td>
+            <td>CELULAR</td>
+            <td>REQUISITO</td>
+            <td>TURNO</td>
+            <td>AÇÕES</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="select-item" *ngFor="let item of tableListParceiros | paginate: config; let i = index"
+              class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            <td>{{item.nameEmpresa}}</td>
+            <td>{{item.cnpj}}</td>
+            <td>{{item.localizacao}}</td>
+            <td>{{item.foneComercial}}</td>
+            <td>{{item.celular}}</td>
+            <td>{{item.requisito}}</td>
+            <td>{{item.turno}}</td>
+            <td >
+              <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+              <mat-icon (click)="onDeleteParceiros(item.id)" style="margin: 5px;">delete</mat-icon>
+            </td>
+            <!-- <td (click)="edicao(item.id)" >Edit</td> -->
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="tabela-footer" *ngIf="paginacao && tableListParceiros">
+        <label class="mostrar">Mostrar</label>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false"
+            [searchable]="false" class="mostrar-drop">
+            <ng-option [value]="10">10</ng-option>
+            <ng-option [value]="50">50</ng-option>
+            <ng-option [value]="100">100</ng-option>
+        </ng-select>
+
+        <div class="container-pagination">
+            <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo"
+                [responsive]="true" (pageChange)="mudarPage($event)">
+            </pagination-controls>
+        </div>
+    </div>
+
+    </div>
+
+  </div>
+</div>

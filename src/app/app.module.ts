@@ -16,6 +16,8 @@ import { AuthGuard } from './pages/guards/auth-guard.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { PagesModule } from './pages/pages.modules';
+
 
 const RxJS = [LoaderInterceptor, HttpStatus]
 
@@ -37,7 +39,7 @@ const RxJS = [LoaderInterceptor, HttpStatus]
     FormsModule,
     MatDialogModule,
     MatButtonModule,
-
+    PagesModule,
     NgxSpinnerModule
   ],
   providers: [
