@@ -17,6 +17,10 @@ import { InformacoesComponent } from './curriculos/informacoes/informacoes.compo
 import { LastJobComponent } from './curriculos/lastJob/lastJob.component';
 import { ParceirosComponent } from './parceiros/parceiros.component';
 import { AgendamentoComponent } from './agendamento/agendamento.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule(
     {
@@ -43,7 +47,11 @@ import { AgendamentoComponent } from './agendamento/agendamento.component';
             NgSelectModule,
             MatIconModule,
             MatDialogModule,
-            MatButtonModule
+            MatButtonModule,
+            MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
         ],
         exports:[
           BookstoreComponent,

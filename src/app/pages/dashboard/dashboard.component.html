@@ -40,6 +40,26 @@
     </div>
 
   </div>
+
+  <div class="calendar-container">
+    <div class="header">
+      <div class="icon">
+        <img src="assets/checklist-icon.png" alt="Agenda">
+      </div>
+      <h2>Agendamentos</h2>
+      <span class="year">2025</span>
+    </div>
+
+    <div class="days-grid">
+      <div *ngFor="let dia of diasMes" class="day" [ngClass]="{'aberto': dia.status === 'aberto', 'fechado': dia.status === 'fechado'}">
+        <span>{{ dia.data }}</span>
+        <!-- Exibindo o status -->
+        <span *ngIf="dia.status === 'aberto'">Serviço Aberto</span>
+        <span *ngIf="dia.status === 'fechado'">Serviço Fechado</span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 

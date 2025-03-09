@@ -24,3 +24,96 @@
   color: azure;
   border-radius: 30px;
 }
+
+
+
+
+/* calendar.component.css (Estilização do calendário) */
+.calendar-container {
+  background: #0047ab;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.icon img {
+  width: 40px;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.day {
+  background: black;
+  padding: 10px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.open {
+  border: 2px solid limegreen;
+}
+
+.closed {
+  border: 2px solid red;
+}
+
+
+
+// .aberto {
+//   background-color: green;
+//   color: white;
+//   padding: 5px;
+// }
+
+// .fechado {
+//   background-color: red;
+//   color: white;
+//   padding: 5px;
+// }
+
+// .day {
+//   margin: 10px;
+//   text-align: center;
+// }
+
+.day {
+  width: 100px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.aberto {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: bold;
+}
+
+.fechado {
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: bold;
+}

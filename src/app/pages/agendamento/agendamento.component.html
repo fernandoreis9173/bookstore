@@ -13,31 +13,42 @@
       <div class="row">
         <div class="group-row">
           <label>Agendamento</label>
-          <input  class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada" formControlName="nomeEmpregada"
-            required="">
+          <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
+            formControlName="nomeEmpregada" required="">
           <input class="input-form" type="text" name="turnoHora" id="turnoHora" placeholder="Turno e Hora"
             formControlName="turnoHora" required="">
           <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ" formControlName="cnpj"
-            required="">
-          <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões" formControlName="nomePatraos"
-            required="">
-            <input class="input-form" type="text" name="dataInicial" id="dataInicial" placeholder="Data Inicial" formControlName="dataInicial"
-            required="">
-            <input class="input-form" type="text" name="dataFinal" id="dataFinal" placeholder="Data Final" formControlName="dataFinal"
-            required="">
-            <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização" formControlName="localizacao"
-            required="">
-            <input class="input-form" type="text" name="receita" id="receita" placeholder="Receita" formControlName="receita"
-            required="">
-            <input class="input-form" type="text" name="despesas" id="despesas" placeholder="Despesas" formControlName="despesas"
-            required="">
+            (input)="formatarCNPJ($event)" required mask="00.000.000/0000-00">
+          <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
+            formControlName="nomePatraos" required="">
+          <mat-form-field appearance="outline">
+            <mat-label>Data Inicial</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="dataInicial">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Data Final</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName="dataFinal">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização"
+            formControlName="localizacao" required="">
+          <input class="input-form" type="text" name="receita" id="receita" placeholder="Receita"
+            formControlName="receita" required/>
+
+          <input class="input-form" type="text" name="despesas" id="despesas" placeholder="Despesas"
+            formControlName="despesas" required />
         </div>
       </div>
 
       <div class="row">
         <div class="group-row" style="display: flex; margin: 5px;">
 
-          <button style="margin: 5px;" type="button" mat-raised-button color="warn" (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn"
+            (click)="cancelarEdicao()">Cancelar</button>
           <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
         </div>
       </div>
@@ -75,17 +86,17 @@
         </thead>
         <tbody>
           <tr class="select-item" *ngFor="let item of tableListAgendamento | paginate: config; let i = index"
-              class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+            class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
             <td>{{item.nomeEmpregada}}</td>
             <td>{{item.turnoHora}}</td>
             <td>{{item.cnpj}}</td>
             <td>{{item.nomePatraos}}</td>
-            <td>{{item.dataInicial}}</td>
-            <td>{{item.dataFinal}}</td>
+            <td>{{item.dataInicial | date: 'dd/MM/yyyy'}}</td>
+            <td>{{item.dataFinal | date: 'dd/MM/yyyy'}}</td>
             <td>{{item.localizacao}}</td>
             <td>{{item.receita}}</td>
             <td>{{item.despesas}}</td>
-            <td >
+            <td>
               <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
               <mat-icon (click)="onDeleteAgendamento(item.id)" style="margin: 5px;">delete</mat-icon>
             </td>
@@ -96,19 +107,19 @@
 
       <div class="tabela-footer" *ngIf="paginacao && tableListAgendamento">
         <label class="mostrar">Mostrar</label>
-        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false"
-            [searchable]="false" class="mostrar-drop">
-            <ng-option [value]="10">10</ng-option>
-            <ng-option [value]="50">50</ng-option>
-            <ng-option [value]="100">100</ng-option>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="50">50</ng-option>
+          <ng-option [value]="100">100</ng-option>
         </ng-select>
 
         <div class="container-pagination">
-            <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo"
-                [responsive]="true" (pageChange)="mudarPage($event)">
-            </pagination-controls>
+          <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
+          </pagination-controls>
         </div>
-    </div>
+      </div>
 
     </div>
 
