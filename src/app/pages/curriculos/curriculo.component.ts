@@ -17,12 +17,15 @@ import { Router } from '@angular/router';
 export class CurriculoComponent {
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListCurriculo: Array<Curriculos>;
+   originalListCurriculos: Curriculos[] = []; // Lista original salva
   id: string;
 
   page: number = 1;
   config: any;
   paginacao: boolean = true;
   itemsPorPagina: number = 10;
+
+  isSearchActive: boolean = false;
 
   ngOnInit() {
     this.getCurriculo();
@@ -89,6 +92,11 @@ export class CurriculoComponent {
     };
   }
 
+  isInvalidField(field: string): boolean {
+    return this.curriculoForm.get(field)?.invalid &&
+           (this.curriculoForm.get(field)?.dirty || this.curriculoForm.get(field)?.touched);
+  }
+
   gerarIdParaConfigDePaginacao() {
     var result = '';
     var characters =
@@ -125,6 +133,7 @@ export class CurriculoComponent {
 
         if (response.result) {
           this.tableListCurriculo = response.result;
+          this.originalListCurriculos = [...response.result];
         } else {
           console.error(
             'A propriedade "result" não existe no objeto de resposta.'
@@ -138,7 +147,21 @@ export class CurriculoComponent {
     );
   }
 
+  searchTable(event: any): void {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    this.isSearchActive = searchTerm.length > 0;
 
+    if (!this.isSearchActive) {
+      this.tableListCurriculo = [...this.originalListCurriculos]; // Restaura a lista original
+      return;
+    }
+
+    this.tableListCurriculo = this.originalListCurriculos.filter(agendamento =>
+      Object.values(agendamento).some(value =>
+        value && value.toString().toLowerCase().includes(searchTerm)
+      )
+    );
+  }
 
   curriculoForm: FormGroup;
 
@@ -149,6 +172,13 @@ export class CurriculoComponent {
   }
 
   enviar() {
+
+    if (this.curriculoForm.invalid) {
+      this.curriculoForm.markAllAsTouched(); // Exibe os erros nos campos obrigatórios
+      return; // Interrompe o envio até que o formulário esteja válido
+    }
+
+
     const { id, ...curriculoData } = {
       id: this.curriculoForm.value.id,
       nome: this.curriculoForm.value.nome,

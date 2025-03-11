@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import { Agendamento } from 'src/app/models/agendamento';
 import { AgendamentoService } from 'src/app/services/agendamento.service';
+import { ParceirosService } from 'src/app/services/parceiros.service';
 
 @Component({
   selector: 'app-agendamento',
@@ -16,12 +17,17 @@ import { AgendamentoService } from 'src/app/services/agendamento.service';
 export class AgendamentoComponent {
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListAgendamento: Array<Agendamento>;
+  originalListAgendamento: Agendamento[] = []; // Lista original salva
   id: string;
 
   page: number = 1;
   config: any;
   paginacao: boolean = true;
   itemsPorPagina: number = 10;
+
+  isSearchActive: boolean = false;
+
+  parceiro: any = null;
 
   configpag() {
     this.id = this.gerarIdParaConfigDePaginacao();
@@ -60,24 +66,90 @@ export class AgendamentoComponent {
     this.config.currentPage = this.page;
   }
 
-  getAgendamento() {
+  // searchTableParceiro(event: Event) {
+  //   const input = (event.target as HTMLInputElement).value.trim();
+
+  //   if (input.length >= 14) { // Valida se é um CNPJ completo
+
+  //     this.parceiroService.getParceiroByCNPJ(input).subscribe({
+  //       next: (parceiro) => {
+
+  //         if (parceiro) {
+  //           this.updateParceiroData(parceiro);
+  //         } else {
+  //           console.warn("Parceiro não encontrado");
+  //         }
+  //       },
+  //       error: (err) => console.error("Erro ao buscar parceiro:", err)
+  //     });
+  //   }
+  // }
+
+
+  searchTableParceiro(event: any): void {
+    const cnpj = event.target.value.trim(); // Obtemos o valor do CNPJ
+
+    if (cnpj.length >= 14) { // Se o CNPJ tem o tamanho esperado (14 dígitos)
+      this.parceiroService.getParceiroByCNPJ(cnpj).subscribe(
+        (response) => {
+          if (response.status === 'ok' && response.parceiro) {
+            this.updateParceiroData(response.parceiro); // Preenche os campos com os dados do parceiro
+          } else {
+            console.warn("Parceiro não encontrado");
+            this.resetFormFields(); // Limpa os campos se não encontrar
+          }
+        },
+        (error) => {
+          console.error("Erro ao buscar parceiro:", error);
+          this.resetFormFields(); // Limpa os campos em caso de erro
+        }
+      );
+    } else {
+      this.resetFormFields(); // Limpa os campos se o CNPJ for inválido
+    }
+  }
+
+  // Função para preencher os campos
+  updateParceiroData(parceiro: any): void {
+    this.parceiro = parceiro;
+    this.agendamentoForm.patchValue({
+      turnoHora: parceiro.turno || '',
+      cnpj: parceiro.cnpj || '',
+      nomePatraos: parceiro.nameEmpresa || '',
+      localizacao: parceiro.localizacao || '',
+    });
+  }
+
+  // Função para limpar os campos
+  resetFormFields(): void {
+    this.agendamentoForm.reset(); // Limpa os campos
+  }
+
+
+  getAgendamento(): void {
     this.itemEdicao = null;
     this.tipoTela = 1;
-
-    this.agendamentoService.getAgendamento().subscribe(
-      (response: any) => {
-        if (response.result) {
-          this.tableListAgendamento = response.result;
-        } else {
-          console.error(
-            'A propriedade "result" não existe no objeto de resposta.'
-          );
-        }
-
+    this.agendamentoService.getAgendamento().subscribe((response: any) => {
+      if (response.result) {
         this.tableListAgendamento = response.result;
-      },
-      (error) => console.error(error),
-      () => {}
+        this.originalListAgendamento = [...response.result]; // Salva a lista original
+      }
+    });
+  }
+
+  searchTable(event: any): void {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    this.isSearchActive = searchTerm.length > 0;
+
+    if (!this.isSearchActive) {
+      this.tableListAgendamento = [...this.originalListAgendamento]; // Restaura a lista original
+      return;
+    }
+
+    this.tableListAgendamento = this.originalListAgendamento.filter(agendamento =>
+      Object.values(agendamento).some(value =>
+        value && value.toString().toLowerCase().includes(searchTerm)
+      )
     );
   }
 
@@ -86,7 +158,8 @@ export class AgendamentoComponent {
     public formBuilder: FormBuilder,
     private agendamentoService: AgendamentoService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private parceiroService: ParceirosService
   ) {}
 
   agendamentoForm: FormGroup;
@@ -110,6 +183,22 @@ export class AgendamentoComponent {
       despesas: ['', [Validators.required]],
     });
   }
+
+  // searchTable(event: any): void {
+  //   const searchTerm = event.target.value.toLowerCase().trim();
+  //   this.isSearchActive = searchTerm.length > 0;
+
+  //   if (!this.isSearchActive) {
+  //     this.filteredData = [...this.tableData]; // Volta à lista original se a pesquisa estiver vazia
+  //     return;
+  //   }
+
+  //   this.filteredData = this.tableData.filter(item =>
+  //     Object.values(item).some(value =>
+  //       value.toString().toLowerCase().includes(searchTerm)
+  //     )
+  //   );
+  // }
 
   get dadosForm() {
     return this, this.agendamentoForm.controls;

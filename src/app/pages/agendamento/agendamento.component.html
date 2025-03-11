@@ -4,23 +4,41 @@
 
 <div *ngIf="tipoTela == 2" class="container-base">
   <div class="content-page">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
+      <div>
       <div class="card-title">Register Agendamento</div>
       <div (click)="getAgendamento()" class="card-menu">List Agendamento</div>
+    </div>
+    <div class="align-self-center">
+      <input type="text" (input)="searchTableParceiro($event)" placeholder="Pesquisar..." />
+    </div>
     </div>
 
     <form class="form-page" [formGroup]="agendamentoForm" (submit)="enviar()">
       <div class="row">
         <div class="group-row">
           <label>Agendamento</label>
-          <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
+          <!-- <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
             formControlName="nomeEmpregada" required="">
           <input class="input-form" type="text" name="turnoHora" id="turnoHora" placeholder="Turno e Hora"
             formControlName="turnoHora" required="">
           <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ" formControlName="cnpj"
             (input)="formatarCNPJ($event)" required mask="00.000.000/0000-00">
           <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
-            formControlName="nomePatraos" required="">
+            formControlName="nomePatraos" required=""> -->
+            <!-- Campos para exibir as informações do parceiro -->
+            <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
+            formControlName="nomeEmpregada" required="">
+
+          <input class="input-form" type="text" name="turnoHora" id="turnoHora" placeholder="Turno e Hora"
+            formControlName="turnoHora" [value]="parceiro?.turno" required="">
+
+          <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ" formControlName="cnpj"
+            (input)="formatarCNPJ($event)" [value]="parceiro?.cnpj" required mask="00.000.000/0000-00">
+
+          <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
+            formControlName="nomePatraos" [value]="parceiro?.nameEmpresa" required="">
+
           <mat-form-field appearance="outline">
             <mat-label>Data Inicial</mat-label>
             <input matInput [matDatepicker]="picker1" formControlName="dataInicial">
@@ -35,9 +53,9 @@
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização"
-            formControlName="localizacao" required="">
+            formControlName="localizacao" [value]="parceiro?.localizacao" required="">
           <input class="input-form" type="text" name="receita" id="receita" placeholder="Receita"
-            formControlName="receita" required/>
+            formControlName="receita" required />
 
           <input class="input-form" type="text" name="despesas" id="despesas" placeholder="Despesas"
             formControlName="despesas" required />
@@ -64,46 +82,54 @@
   <div class="content-page">
 
     <div class="header-info-2">
-      <div class="card-header">
-        <div class="card-title"> List Agendamento</div>
-        <div (click)="cadastro()" class="card-menu"> Register Agendamento</div>
+      <div class="card-header d-flex justify-content-between">
+        <div>
+          <div class="card-title"> List Agendamento</div>
+          <div (click)="cadastro()" class="card-menu"> Register Agendamento</div>
+        </div>
+        <div class="align-self-center">
+          <input type="text" (input)="searchTable($event)" placeholder="Pesquisar..." />
+        </div>
+
       </div>
 
-      <table cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            <td>NOME EMPREGADA</td>
-            <td>TURNO E HORA</td>
-            <td>CNPJ</td>
-            <td>NOME DOS PATRÕES</td>
-            <td>DATA INICIAL</td>
-            <td>DATA FINAL</td>
-            <td>LOCALIZAÇÃO</td>
-            <td>RECEITA</td>
-            <td>DESPESA</td>
-            <td>AÇÕES</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="select-item" *ngFor="let item of tableListAgendamento | paginate: config; let i = index"
-            class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
-            <td>{{item.nomeEmpregada}}</td>
-            <td>{{item.turnoHora}}</td>
-            <td>{{item.cnpj}}</td>
-            <td>{{item.nomePatraos}}</td>
-            <td>{{item.dataInicial | date: 'dd/MM/yyyy'}}</td>
-            <td>{{item.dataFinal | date: 'dd/MM/yyyy'}}</td>
-            <td>{{item.localizacao}}</td>
-            <td>{{item.receita}}</td>
-            <td>{{item.despesas}}</td>
-            <td>
-              <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
-              <mat-icon (click)="onDeleteAgendamento(item.id)" style="margin: 5px;">delete</mat-icon>
-            </td>
-            <!-- <td (click)="edicao(item.id)" >Edit</td> -->
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-box table-responsive">
+        <table cellSpacing="0" cellPadding="0">
+          <thead>
+            <tr>
+              <td>NOME EMPREGADA</td>
+              <td>TURNO E HORA</td>
+              <td>CNPJ</td>
+              <td>NOME DOS PATRÕES</td>
+              <td>DATA INICIAL</td>
+              <td>DATA FINAL</td>
+              <td>LOCALIZAÇÃO</td>
+              <td>RECEITA</td>
+              <td>DESPESA</td>
+              <td>AÇÕES</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="select-item" *ngFor="let item of tableListAgendamento | paginate: config; let i = index"
+              class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
+              <td>{{item.nomeEmpregada}}</td>
+              <td>{{item.turnoHora}}</td>
+              <td>{{item.cnpj}}</td>
+              <td>{{item.nomePatraos}}</td>
+              <td>{{item.dataInicial | date: 'dd/MM/yyyy'}}</td>
+              <td>{{item.dataFinal | date: 'dd/MM/yyyy'}}</td>
+              <td>{{item.localizacao}}</td>
+              <td>{{item.receita}}</td>
+              <td>{{item.despesas}}</td>
+              <td>
+                <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+                <mat-icon (click)="onDeleteAgendamento(item.id)" style="margin: 5px;">delete</mat-icon>
+              </td>
+              <!-- <td (click)="edicao(item.id)" >Edit</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="tabela-footer" *ngIf="paginacao && tableListAgendamento">
         <label class="mostrar">Mostrar</label>

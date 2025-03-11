@@ -13,83 +13,342 @@
       <div class="row">
         <div class="group-row">
           <label>Curriculos</label>
-          <div class="nameIdade">
-            <input  class="input-form" type="text" name="nome" id="nome" placeholder="Nome" formControlName="nome"
-            required="">
-          <input class="input-form" type="text" name="idade" id="idade" placeholder="Idade"
-            formControlName="idade" required="">
+          <div class="nameIdade d-flex">
+            <div class="form-group">
+              <input class="input-form" type="text" name="nome" id="nome" placeholder="Nome" formControlName="nome"
+                required />
+              <div class="error-message"
+                *ngIf="curriculoForm.get('nome')?.invalid && (curriculoForm.get('nome')?.dirty || curriculoForm.get('nome')?.touched)">
+                Nome é obrigatório.
+              </div>
+            </div>
+            <div class="form-group">
+              <input class="input-form" type="text" name="idade" id="idade" placeholder="Idade" formControlName="idade"
+                required />
+              <div class="error-message"
+                *ngIf="curriculoForm.get('idade')?.invalid && (curriculoForm.get('idade')?.dirty || curriculoForm.get('idade')?.touched)">
+                Idade é obrigatória.
+              </div>
+            </div>
+            <div class="form-group">
+              <input class="input-form" type="text" id="endereco" placeholder="Endereço" formControlName="endereco"
+                required />
+              <div class="error-message"
+                *ngIf="curriculoForm.get('endereco')?.invalid && curriculoForm.get('endereco')?.touched">
+                Endereço é obrigatório.
+              </div>
+            </div>
           </div>
 
           <div class="enderecos">
-            <input class="input-form" type="text" name="endereco" id="endereco" placeholder="Endereço" formControlName="endereco"
-            required="">
-          <input class="input-form" type="text" name="bairro" id="bairro" placeholder="Bairro" formControlName="bairro"
-            required="">
-            <input class="input-form" type="text" name="cidade" id="cidade" placeholder="Cidade" formControlName="cidade"
-            required="">
-            <input class="input-form" type="text" name="proximo" id="proximo" placeholder="Proximo" formControlName="proximo"
-            required="">
-            <input class="input-form" type="text" name="estado" id="estado" placeholder="Estado" formControlName="estado"
-            required="">
-            <input class="input-form" type="text" name="tempoMoradia" id="tempoMoradia" placeholder="Quanto tempo mora no endereço?" formControlName="tempoMoradia"
-            required="">
-            <input class="input-form" type="text" name="tempocidade" id="tempocidade" placeholder="Quanto tempo mora na cidade?" formControlName="tempocidade"
-            required="">
-            <input class="input-form" type="text" name="moradiaAntes" id="moradiaAntes" placeholder="Cidade e Estado que morava" formControlName="moradiaAntes"
-            required="">
-            <input class="input-form" type="text" name="casaPropria" id="casaPropria" placeholder="Tem casa própria?" formControlName="casaPropria"
-            required="">
-            <input class="input-form" type="text" name="valorAluguel" id="valorAluguel" placeholder="Quanto paga de aluguel" formControlName="valorAluguel"
-            required="">
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" id="bairro" placeholder="Bairro" formControlName="bairro"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('bairro')?.invalid && curriculoForm.get('bairro')?.touched">
+                  Bairro é obrigatório.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="cidade" placeholder="Cidade" formControlName="cidade"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('cidade')?.invalid && curriculoForm.get('cidade')?.touched">
+                  Cidade é obrigatória.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="proximo" placeholder="Próximo de" formControlName="proximo"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('proximo')?.invalid && curriculoForm.get('proximo')?.touched">
+                  Campo obrigatório.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" id="estado" placeholder="Estado" formControlName="estado"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('estado')?.invalid && curriculoForm.get('estado')?.touched">
+                  Estado é obrigatório.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="tempoMoradia" placeholder="Tempo de Moradia"
+                  formControlName="tempoMoradia" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('tempoMoradia')?.invalid && curriculoForm.get('tempoMoradia')?.touched">
+                  Informe há quanto tempo mora no endereço.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="tempocidade" placeholder="Tempo na Cidade"
+                  formControlName="tempocidade" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('tempocidade')?.invalid && curriculoForm.get('tempocidade')?.touched">
+                  Informe há quanto tempo mora na cidade.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" id="moradiaAntes" placeholder="Cidade e Estado anterior"
+                  formControlName="moradiaAntes" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('moradiaAntes')?.invalid && curriculoForm.get('moradiaAntes')?.touched">
+                  Informe onde morava antes.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="casaPropria" placeholder="Tem casa própria?"
+                  formControlName="casaPropria" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('casaPropria')?.invalid && curriculoForm.get('casaPropria')?.touched">
+                  Informe se possui casa própria.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="valorAluguel" placeholder="Valor do Aluguel"
+                  formControlName="valorAluguel" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('valorAluguel')?.invalid && curriculoForm.get('valorAluguel')?.touched">
+                  Informe quanto paga de aluguel.
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="inforPessoais">
-            <input  class="input-form" type="text" name="telefone" id="telefone" placeholder="Fone" formControlName="telefone"
-            required="">
-          <input class="input-form" type="text" name="celular" id="celular" placeholder="Celular"
-            formControlName="celular" required="">
-            <input  class="input-form" type="text" name="foneRecador" id="foneRecador" placeholder="Fone Recado" formControlName="foneRecador"
-            required="">
-            <input  class="input-form" type="text" name="localNascimento" id="localNascimento" placeholder="Local de nascimento" formControlName="localNascimento"
-            required="">
-            <input  class="input-form" type="text" name="dataNascimento" id="dataNascimento" placeholder="Data de nascimento" formControlName="dataNascimento"
-            required="">
-            <input  class="input-form" type="text" name="rg" id="rg" placeholder="RG" formControlName="rg"
-            required="">
-            <input  class="input-form" type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="Orgão emissor" formControlName="orgaoEmissor"
-            required="">
-            <input  class="input-form" type="text" name="rgestado" id="rgestado" placeholder="Estado de expedição" formControlName="rgestado"
-            required="">
-            <input  class="input-form" type="text" name="dataEmissao" id="dataEmissao" placeholder="Data de expedição" formControlName="dataEmissao"
-            required="">
-            <input  class="input-form" type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf"
-            required="">
-            <input  class="input-form" type="text" name="tituloEleitor" id="tituloEleitor" placeholder="Titulo de Eleitor" formControlName="tituloEleitor"
-            required="">
-            <input  class="input-form" type="text" name="zonaEleitoral" id="zonaEleitoral" placeholder="Zona" formControlName="zonaEleitoral"
-            required="">
-            <input  class="input-form" type="text" name="secaoEleitoral" id="secaoEleitoral" placeholder="Seção" formControlName="secaoEleitoral"
-            required="">
-            <input  class="input-form" type="text" name="numeroCarteiraProfissional" id="numeroCarteiraProfissional" placeholder="Nº Carteira Profissional" formControlName="numeroCarteiraProfissional"
-            required="">
-            <input  class="input-form" type="text" name="serieCarteiraProfissional" id="serieCarteiraProfissional" placeholder="série Carteira Profissional" formControlName="serieCarteiraProfissional"
-            required="">
-            <input  class="input-form" type="text" name="ufCarteiraProfissional" id="ufCarteiraProfissional" placeholder="Estado da Carteira Profissional" formControlName="ufCarteiraProfissional"
-            required="">
-            <input  class="input-form" type="text" name="numeroCarteiraMotorista" id="numeroCarteiraMotorista" placeholder="Nº Carteira de motorista" formControlName="numeroCarteiraMotorista"
-            required="">
-            <input  class="input-form" type="text" name="categoria" id="categoria" placeholder="Categoria" formControlName="categoria"
-            required="">
-            <input  class="input-form" type="text" name="pis" id="pis" placeholder="PIS" formControlName="pis"
-            required="">
-            <input  class="input-form" type="text" name="nomePais" id="nomePais" placeholder="Nome do Pai" formControlName="nomePais"
-            required="">
-            <input  class="input-form" type="text" name="nomeMae" id="nomeMae" placeholder="Nome do Mãe" formControlName="nomeMae"
-            required="">
-            <input  class="input-form" type="text" name="filhos" id="filhos" placeholder="Tem Filhos" formControlName="filhos"
-            required="">
-            <input  class="input-form" type="text" name="idadeFilhos" id="idadeFilhos" placeholder="Idade Filhos" formControlName="idadeFilhos"
-            required="">
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" id="telefone" placeholder="Fone" formControlName="telefone"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('telefone')?.invalid && curriculoForm.get('telefone')?.touched">
+                  Informe um telefone válido.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="celular" placeholder="Celular" formControlName="celular"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('celular')?.invalid && curriculoForm.get('celular')?.touched">
+                  Informe um celular válido.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" id="foneRecador" placeholder="Fone Recado"
+                  formControlName="foneRecador" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('foneRecador')?.invalid && curriculoForm.get('foneRecador')?.touched">
+                  Informe um número para recado.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="localNascimento" id="localNascimento"
+                  placeholder="Local de nascimento" formControlName="localNascimento" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('localNascimento')?.invalid && curriculoForm.get('localNascimento')?.touched">
+                  Informe o local de nascimento.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="dataNascimento" id="dataNascimento"
+                  placeholder="Data de nascimento" formControlName="dataNascimento" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('dataNascimento')?.invalid && curriculoForm.get('dataNascimento')?.touched">
+                  Informe a data de nascimento.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="rg" id="rg" placeholder="RG" formControlName="rg"
+                  required />
+                <div class="error-message" *ngIf="curriculoForm.get('rg')?.invalid && curriculoForm.get('rg')?.touched">
+                  Informe o RG.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="orgaoEmissor" id="orgaoEmissor" placeholder="Orgão emissor"
+                  formControlName="orgaoEmissor" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('orgaoEmissor')?.invalid && curriculoForm.get('orgaoEmissor')?.touched">
+                  Informe o órgão emissor.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="rgestado" id="rgestado" placeholder="Estado de expedição"
+                  formControlName="rgestado" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('rgestado')?.invalid && curriculoForm.get('rgestado')?.touched">
+                  Informe o estado de expedição.
+                </div>
+              </div>
+              <div class="form-group">
+                <input class="input-form" type="text" name="dataEmissao" id="dataEmissao"
+                  placeholder="Data de expedição" formControlName="dataEmissao" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('dataEmissao')?.invalid && curriculoForm.get('dataEmissao')?.touched">
+                  Informe a data de expedição.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="cpf" id="cpf" placeholder="CPF" formControlName="cpf"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('cpf')?.invalid && curriculoForm.get('cpf')?.touched">
+                  Informe o CPF.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="tituloEleitor" id="tituloEleitor"
+                  placeholder="Titulo de Eleitor" formControlName="tituloEleitor" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('tituloEleitor')?.invalid && curriculoForm.get('tituloEleitor')?.touched">
+                  Informe o título de eleitor.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="zonaEleitoral" id="zonaEleitoral" placeholder="Zona"
+                  formControlName="zonaEleitoral" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('zonaEleitoral')?.invalid && curriculoForm.get('zonaEleitoral')?.touched">
+                  Informe a zona eleitoral.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="secaoEleitoral" id="secaoEleitoral" placeholder="Seção"
+                  formControlName="secaoEleitoral" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('secaoEleitoral')?.invalid && curriculoForm.get('secaoEleitoral')?.touched">
+                  Informe a seção eleitoral.
+                </div>
+              </div>
+              <div class="form-group">
+                <input class="input-form" type="text" name="numeroCarteiraProfissional" id="numeroCarteiraProfissional"
+                  placeholder="Nº Carteira Profissional" formControlName="numeroCarteiraProfissional" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('numeroCarteiraProfissional')?.invalid && curriculoForm.get('numeroCarteiraProfissional')?.touched">
+                  Informe o número da carteira profissional.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="serieCarteiraProfissional" id="serieCarteiraProfissional"
+                  placeholder="Série Carteira Profissional" formControlName="serieCarteiraProfissional" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('serieCarteiraProfissional')?.invalid && curriculoForm.get('serieCarteiraProfissional')?.touched">
+                  Informe a série da carteira profissional.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="ufCarteiraProfissional" id="ufCarteiraProfissional"
+                  placeholder="Estado da Carteira Profissional" formControlName="ufCarteiraProfissional" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('ufCarteiraProfissional')?.invalid && curriculoForm.get('ufCarteiraProfissional')?.touched">
+                  Informe o estado da carteira profissional.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="numeroCarteiraMotorista" id="numeroCarteiraMotorista"
+                  placeholder="Nº Carteira de Motorista" formControlName="numeroCarteiraMotorista" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('numeroCarteiraMotorista')?.invalid && curriculoForm.get('numeroCarteiraMotorista')?.touched">
+                  Informe o número da carteira de motorista.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="categoria" id="categoria" placeholder="Categoria"
+                  formControlName="categoria" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('categoria')?.invalid && curriculoForm.get('categoria')?.touched">
+                  Informe a categoria.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="pis" id="pis" placeholder="PIS" formControlName="pis"
+                  required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('pis')?.invalid && curriculoForm.get('pis')?.touched">
+                  Informe o PIS.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="nomePais" id="nomePais" placeholder="Nome do Pai"
+                  formControlName="nomePais" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('nomePais')?.invalid && curriculoForm.get('nomePais')?.touched">
+                  Informe o nome do pai.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="nomeMae" id="nomeMae" placeholder="Nome da Mãe"
+                  formControlName="nomeMae" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('nomeMae')?.invalid && curriculoForm.get('nomeMae')?.touched">
+                  Informe o nome da mãe.
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex">
+              <div class="form-group">
+                <input class="input-form" type="text" name="filhos" id="filhos" placeholder="Tem Filhos"
+                  formControlName="filhos" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('filhos')?.invalid && curriculoForm.get('filhos')?.touched">
+                  Informe se tem filhos.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input class="input-form" type="text" name="idadeFilhos" id="idadeFilhos" placeholder="Idade Filhos"
+                  formControlName="idadeFilhos" required />
+                <div class="error-message"
+                  *ngIf="curriculoForm.get('idadeFilhos')?.invalid && curriculoForm.get('idadeFilhos')?.touched">
+                  Informe a idade dos filhos.
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -98,7 +357,8 @@
       <div class="row">
         <div class="group-row" style="display: flex; margin: 5px;">
 
-          <button style="margin: 5px;" type="button" mat-raised-button color="warn" (click)="cancelarEdicao()">Cancelar</button>
+          <button style="margin: 5px;" type="button" mat-raised-button color="warn"
+            (click)="cancelarEdicao()">Cancelar</button>
           <button style="margin: 5px;" type="submit" value="Salvar" mat-raised-button color="primary">Salvar</button>
         </div>
       </div>
@@ -112,58 +372,64 @@
 <div *ngIf="tipoTela == 1" class="container-base">
 
   <div class="content-page">
-
     <div class="header-info-2">
-      <div class="card-header">
-        <div class="card-title"> List Curriculos</div>
-        <div (click)="cadastro()" class="card-menu"> Register Curriculos</div>
+      <div class="card-header d-flex justify-content-between">
+        <div>
+          <div class="card-title"> List Curriculos</div>
+          <div (click)="cadastro()" class="card-menu"> Register Curriculos</div>
+        </div>
+        <div class="align-self-center">
+          <input type="text" (input)="searchTable($event)" placeholder="Pesquisar..." />
+        </div>
       </div>
 
-      <table cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            <td>NOME</td>
-            <td>CELULAR</td>
-            <td>ESTADO</td>
-            <td>CIDADE</td>
-            <td>BAIRRO</td>
-            <td>CPF</td>
-            <td>ACTION</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="select-item" *ngFor="let item of tableListCurriculo | paginate: config; let i = index"
+      <div class="table-box table-responsive">
+        <table cellSpacing="0" cellPadding="0">
+          <thead>
+            <tr>
+              <td>NOME</td>
+              <td>CELULAR</td>
+              <td>ESTADO</td>
+              <td>CIDADE</td>
+              <td>BAIRRO</td>
+              <td>CPF</td>
+              <td>ACTION</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="select-item" *ngFor="let item of tableListCurriculo | paginate: config; let i = index"
               class="linha-table" [ngClass]="{'linha-cinza' : i % 2 == 0, 'linha-branca': i % 2 !== 0}">
-            <td>{{item.nome}}</td>
-            <td>{{item.celular}}</td>
-            <td>{{item.estado}}</td>
-            <td>{{item.cidade}}</td>
-            <td>{{item.bairro}}</td>
-            <td>{{item.cpf}}</td>
-            <td >
-              <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
-              <mat-icon (click)="onDeleteCurriculo(item.id)" style="margin: 5px;">delete</mat-icon>
-            </td>
-            <!-- <td (click)="edicao(item.id)" >Edit</td> -->
-          </tr>
-        </tbody>
-      </table>
+              <td>{{item.nome}}</td>
+              <td>{{item.celular}}</td>
+              <td>{{item.estado}}</td>
+              <td>{{item.cidade}}</td>
+              <td>{{item.bairro}}</td>
+              <td>{{item.cpf}}</td>
+              <td>
+                <mat-icon (click)="edicao(item.id)" style="margin: 5px;">edit</mat-icon>
+                <mat-icon (click)="onDeleteCurriculo(item.id)" style="margin: 5px;">delete</mat-icon>
+              </td>
+              <!-- <td (click)="edicao(item.id)" >Edit</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="tabela-footer" *ngIf="paginacao && tableListCurriculo">
         <label class="mostrar">Mostrar</label>
-        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false"
-            [searchable]="false" class="mostrar-drop">
-            <ng-option [value]="10">10</ng-option>
-            <ng-option [value]="50">50</ng-option>
-            <ng-option [value]="100">100</ng-option>
+        <ng-select (change)="mudarItemsPorPage()" [(ngModel)]="itemsPorPagina" [clearable]="false" [searchable]="false"
+          class="mostrar-drop">
+          <ng-option [value]="10">10</ng-option>
+          <ng-option [value]="50">50</ng-option>
+          <ng-option [value]="100">100</ng-option>
         </ng-select>
 
         <div class="container-pagination">
-            <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo"
-                [responsive]="true" (pageChange)="mudarPage($event)">
-            </pagination-controls>
+          <pagination-controls id="{{this.id}}" previousLabel="Anterior" nextLabel="Próximo" [responsive]="true"
+            (pageChange)="mudarPage($event)">
+          </pagination-controls>
         </div>
-    </div>
+      </div>
 
     </div>
 

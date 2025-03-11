@@ -10,6 +10,7 @@ label{
     border-width: 1px 1px 3px;
     font-family: cursive;
     font-size: 20px;
+    width: 90%;
   }
 
   table{
@@ -25,4 +26,10 @@ label{
   tbody tr td{
     FONT-SIZE: 20px;
     font-family: cursive;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
   }

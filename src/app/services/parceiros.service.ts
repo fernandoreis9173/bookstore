@@ -55,6 +55,10 @@ export class ParceirosService {
       })
     );
   }
+
+  getParceiroByCNPJ(cnpj: string): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/partners/buscar?cnpj=${cnpj}`);
+  }
 }
 
 

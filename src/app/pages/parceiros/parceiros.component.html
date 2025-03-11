@@ -49,9 +49,14 @@
   <div class="content-page">
 
     <div class="header-info-2">
-      <div class="card-header">
+      <div class="card-header d-flex justify-content-between">
+        <div>
         <div class="card-title"> List Parceiros</div>
         <div (click)="cadastro()" class="card-menu"> Register Parceiros</div>
+      </div>
+      <div class="align-self-center">
+        <input type="text" (input)="searchTable($event)" placeholder="Pesquisar..." />
+      </div>
       </div>
 
       <table cellSpacing="0" cellPadding="0">

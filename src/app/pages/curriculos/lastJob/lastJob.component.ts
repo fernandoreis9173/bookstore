@@ -268,7 +268,8 @@ export class LastJobComponent {
     );
   }
   cancelarEdicao(): void {
-    this.getLastJob();
+    // this.getLastJob();
+    this.router.navigate(['/curriculos']);
   }
 
   onDeleteLastJob(id: number) {

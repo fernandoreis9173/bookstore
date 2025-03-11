@@ -17,12 +17,15 @@ export class ParceirosComponent {
 
   tipoTela: number = 1; // 1 listagem, 2 cadastro, 3 edição
   tableListParceiros: Array<Parceiros>
+  originalListParceiros: Parceiros[] = [];
   id: string;
 
   page: number = 1;
   config: any;
   paginacao: boolean = true;
   itemsPorPagina: number = 10
+
+  isSearchActive: boolean = false;
 
   configpag() {
     this.id = this.gerarIdParaConfigDePaginacao();
@@ -71,6 +74,7 @@ export class ParceirosComponent {
       .subscribe((response: any) => {
         if (response.result) {
           this.tableListParceiros = response.result;
+          this.originalListParceiros = [...response.result]; // Salva a lista original
         } else {
           console.error('A propriedade "result" não existe no objeto de resposta.');
         }
@@ -78,6 +82,22 @@ export class ParceirosComponent {
         this.tableListParceiros = response.result;
       }, (error) => console.error(error),
         () => { })
+  }
+
+  searchTable(event: any): void {
+    const searchTerm = event.target.value.toLowerCase().trim();
+    this.isSearchActive = searchTerm.length > 0;
+
+    if (!this.isSearchActive) {
+      this.tableListParceiros = [...this.originalListParceiros]; // Restaura a lista original
+      return;
+    }
+
+    this.tableListParceiros = this.originalListParceiros.filter(agendamento =>
+      Object.values(agendamento).some(value =>
+        value && value.toString().toLowerCase().includes(searchTerm)
+      )
+    );
   }
 
   constructor(public menuService: MenuService,

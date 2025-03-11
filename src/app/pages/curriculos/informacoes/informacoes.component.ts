@@ -302,7 +302,8 @@ export class InformacoesComponent {
     );
   }
   cancelarEdicao(): void {
-    this.getInformacoes();
+    // this.getInformacoes();
+    this.router.navigate(['/curriculos']);
   }
 
   onDeleteInformacoes(id: number) {

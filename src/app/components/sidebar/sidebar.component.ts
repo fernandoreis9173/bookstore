@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
@@ -8,41 +9,54 @@ import { MenuService } from 'src/app/services/menu.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  constructor(private router: Router, public menuService: MenuService) {}
+  // menuSelecionado: number = 0;
+
+  ngOnInit() {
+    // Verifica qual menu deve ser selecionado com base na URL ou outro critério
+    const currentRoute = this.router.url; // Pode usar isso para saber qual página foi carregada
+
+    if (currentRoute.includes('dashboard')) {
+      this.menuService.menuSelecionado = 1;
+    } else if (currentRoute.includes('users')) {
+      this.menuService.menuSelecionado = 2;
+    } else if (currentRoute.includes('curriculos')) {
+      this.menuService.menuSelecionado = 3;
+    } else if (currentRoute.includes('partners')) {
+      this.menuService.menuSelecionado = 4;
+    } else if (currentRoute.includes('agendamento')) {
+      this.menuService.menuSelecionado = 5;
+    }
+  }
+
+  constructor(
+    private router: Router,
+    public menuService: MenuService,
+    private authService: AuthService) {}
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('token'); // Remove o token do localStorage
+        this.router.navigate(['/login']); // Redireciona para a tela de login
+      },
+      error: (err) => console.error('Erro ao fazer logout:', err)
+    });
+  }
 
   selectMenu(menu: number) {
-    switch (menu) {
-      case 1:
-        this.router.navigate(['/dashboard']);
-        break;
-
-      case 2:
-        this.router.navigate(['/users']);
-        break;
-
-      // case 3:
-      //   this.router.navigate(['/bookstore']);
-      //   break;
-
-      // case 4:
-      //   this.router.navigate(['/categories']);
-      //   break;
-
-        case 3:
-        this.router.navigate(['/curriculos']);
-        break;
-
-        case 4:
-        this.router.navigate(['/partners']);
-        break;
-
-        case 5:
-        this.router.navigate(['/agendamento']);
-        break;
-
-      default:
-        break;
-    }
+    // Atualiza a variável menuSelecionado
     this.menuService.menuSelecionado = menu;
+    this.router.navigate([this.getRoute(menu)]);
+  }
+
+  private getRoute(menu: number): string {
+    switch (menu) {
+      case 1: return '/dashboard';
+      case 2: return '/users';
+      case 3: return '/curriculos';
+      case 4: return '/partners';
+      case 5: return '/agendamento';
+      default: return '/';
+    }
   }
 }

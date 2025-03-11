@@ -8,5 +8,5 @@ export class MenuService {
     constructor() {
     }
 
-    menuSelecionado: number;
+    menuSelecionado: number = 0;
 }

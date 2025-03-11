@@ -1,6 +1,8 @@
 
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "src/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ export class AuthService{
     private usuarioAutenticadoPortal: boolean = false;
     private token : any;
     private user : any;
+
+    private readonly baseUrl = environment['endPoint'];
 
     constructor (private httpClient: HttpClient){}
 
@@ -49,4 +53,9 @@ export class AuthService{
       localStorage.clear();
       sessionStorage.clear();
     }
+
+    logout(): Observable<any> {
+      return this.httpClient.post(`${this.baseUrl}/auth/logout`, {}); // Chama o backend para invalidar o token
+    }
+
 }

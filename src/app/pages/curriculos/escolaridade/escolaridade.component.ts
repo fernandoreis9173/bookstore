@@ -264,7 +264,8 @@ export class EscolaridadeComponent {
     );
   }
   cancelarEdicao(): void {
-    this.getEscolaridade();
+    // this.getEscolaridade();
+    this.router.navigate(['/curriculos']);
   }
 
   onDeleteEscolaridade(id: number) {

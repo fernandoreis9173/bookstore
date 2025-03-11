@@ -47,13 +47,23 @@
         <img src="assets/checklist-icon.png" alt="Agenda">
       </div>
       <h2>Agendamentos</h2>
-      <span class="year">2025</span>
+
+      <!-- Selecionar Ano -->
+      <select [(ngModel)]="currentYear" (change)="atualizarCalendario()">
+        <option *ngFor="let ano of years" [value]="ano">{{ ano }}</option>
+      </select>
+
+      <!-- Selecionar Mês -->
+      <select [(ngModel)]="currentMonth" (change)="atualizarCalendario()">
+        <option *ngFor="let mes of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="mes">
+          {{ ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'][mes - 1] }}
+        </option>
+      </select>
     </div>
 
     <div class="days-grid">
       <div *ngFor="let dia of diasMes" class="day" [ngClass]="{'aberto': dia.status === 'aberto', 'fechado': dia.status === 'fechado'}">
         <span>{{ dia.data }}</span>
-        <!-- Exibindo o status -->
         <span *ngIf="dia.status === 'aberto'">Serviço Aberto</span>
         <span *ngIf="dia.status === 'fechado'">Serviço Fechado</span>
       </div>
