@@ -11,6 +11,7 @@ import { InformacoesComponent } from './pages/curriculos/informacoes/informacoes
 import { LastJobComponent } from './pages/curriculos/lastJob/lastJob.component';
 import { ParceirosComponent } from './pages/parceiros/parceiros.component';
 import { AgendamentoComponent } from './pages/agendamento/agendamento.component';
+import { FinanceiroComponent } from './pages/financeiro/financeiro.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,11 @@ const routes: Routes = [
   {
     path: 'agendamento',
     component: AgendamentoComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'financeiro',
+    component: FinanceiroComponent,
     canActivate:[AuthGuard]
   }
 ];

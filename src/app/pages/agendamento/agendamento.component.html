@@ -27,17 +27,41 @@
           <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
             formControlName="nomePatraos" required=""> -->
             <!-- Campos para exibir as informações do parceiro -->
-            <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
-            formControlName="nomeEmpregada" required="">
+            <div class="form-group">
+              <input class="input-form" type="text" name="nomeEmpregada" id="nomeEmpregada" placeholder="Nome da Empregada"
+                formControlName="nomeEmpregada" required />
+              <div class="error-message"
+                *ngIf="agendamentoForm.get('nomeEmpregada')?.invalid && (agendamentoForm.get('nomeEmpregada')?.dirty || agendamentoForm.get('nomeEmpregada')?.touched)">
+                Nome da empregada é obrigatório.
+              </div>
+            </div>
 
-          <input class="input-form" type="text" name="turnoHora" id="turnoHora" placeholder="Turno e Hora"
-            formControlName="turnoHora" [value]="parceiro?.turno" required="">
+            <div class="form-group">
+              <input class="input-form" type="text" name="turnoHora" id="turnoHora" placeholder="Turno e Hora"
+                formControlName="turnoHora" [value]="parceiro?.turno" required />
+              <div class="error-message"
+                *ngIf="agendamentoForm.get('turnoHora')?.invalid && (agendamentoForm.get('turnoHora')?.dirty || agendamentoForm.get('turnoHora')?.touched)">
+                Turno e hora são obrigatórios.
+              </div>
+            </div>
 
-          <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ" formControlName="cnpj"
-            (input)="formatarCNPJ($event)" [value]="parceiro?.cnpj" required mask="00.000.000/0000-00">
+            <div class="form-group">
+              <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ" formControlName="cnpj"
+                (input)="formatarCNPJ($event)" [value]="parceiro?.cnpj" required mask="00.000.000/0000-00" />
+              <div class="error-message"
+                *ngIf="agendamentoForm.get('cnpj')?.invalid && (agendamentoForm.get('cnpj')?.dirty || agendamentoForm.get('cnpj')?.touched)">
+                CNPJ é obrigatório.
+              </div>
+            </div>
 
-          <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
-            formControlName="nomePatraos" [value]="parceiro?.nameEmpresa" required="">
+            <div class="form-group">
+              <input class="input-form" type="text" name="nomePatraos" id="nomePatraos" placeholder="Nome dos Patrões"
+                formControlName="nomePatraos" [value]="parceiro?.nameEmpresa" required />
+              <div class="error-message"
+                *ngIf="agendamentoForm.get('nomePatraos')?.invalid && (agendamentoForm.get('nomePatraos')?.dirty || agendamentoForm.get('nomePatraos')?.touched)">
+                Nome dos patrões é obrigatório.
+              </div>
+            </div>
 
           <mat-form-field appearance="outline">
             <mat-label>Data Inicial</mat-label>
@@ -52,13 +76,32 @@
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
-          <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização"
-            formControlName="localizacao" [value]="parceiro?.localizacao" required="">
-          <input class="input-form" type="text" name="receita" id="receita" placeholder="Receita"
-            formControlName="receita" required />
+          <div class="form-group">
+            <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização"
+              formControlName="localizacao" [value]="parceiro?.localizacao" required />
+            <div class="error-message"
+              *ngIf="agendamentoForm.get('localizacao')?.invalid && (agendamentoForm.get('localizacao')?.dirty || agendamentoForm.get('localizacao')?.touched)">
+              Localização é obrigatória.
+            </div>
+          </div>
 
-          <input class="input-form" type="text" name="despesas" id="despesas" placeholder="Despesas"
-            formControlName="despesas" required />
+          <div class="form-group">
+            <input class="input-form" type="text" name="receita" id="receita" placeholder="Receita"
+              formControlName="receita" required />
+            <div class="error-message"
+              *ngIf="agendamentoForm.get('receita')?.invalid && (agendamentoForm.get('receita')?.dirty || agendamentoForm.get('receita')?.touched)">
+              Receita é obrigatória.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="despesas" id="despesas" placeholder="Despesas"
+              formControlName="despesas" required />
+            <div class="error-message"
+              *ngIf="agendamentoForm.get('despesas')?.invalid && (agendamentoForm.get('despesas')?.dirty || agendamentoForm.get('despesas')?.touched)">
+              Despesas são obrigatórias.
+            </div>
+          </div>
         </div>
       </div>
 

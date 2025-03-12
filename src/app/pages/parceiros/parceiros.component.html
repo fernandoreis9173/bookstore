@@ -13,20 +13,68 @@
       <div class="row">
         <div class="group-row">
           <label>Parceiros</label>
-          <input  class="input-form" type="text" name="nameEmpresa" id="nameEmpresa" placeholder="Nome da Empresa" formControlName="nameEmpresa"
-            required="">
-          <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ"
-            formControlName="cnpj" required="">
-          <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="localização" formControlName="localizacao"
-            required="">
-          <input class="input-form" type="text" name="foneComercial" id="foneComercial" placeholder="Fone Comercial" formControlName="foneComercial"
-            required="">
-            <input class="input-form" type="text" name="celular" id="celular" placeholder="Celular" formControlName="celular"
-            required="">
-            <input class="input-form" type="text" name="requisito" id="requisito" placeholder="Requisito" formControlName="requisito"
-            required="">
-            <input class="input-form" type="text" name="turno" id="turno" placeholder="Turno" formControlName="turno"
-            required="">
+          <div class="form-group">
+            <input class="input-form" type="text" name="nameEmpresa" id="nameEmpresa" placeholder="Nome da Empresa"
+              formControlName="nameEmpresa" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('nameEmpresa')?.invalid && (parceirosForm.get('nameEmpresa')?.dirty || parceirosForm.get('nameEmpresa')?.touched)">
+              Nome da empresa é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="cnpj" id="cnpj" placeholder="CNPJ"
+              formControlName="cnpj" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('cnpj')?.invalid && (parceirosForm.get('cnpj')?.dirty || parceirosForm.get('cnpj')?.touched)">
+              CNPJ é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="localizacao" id="localizacao" placeholder="Localização"
+              formControlName="localizacao" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('localizacao')?.invalid && (parceirosForm.get('localizacao')?.dirty || parceirosForm.get('localizacao')?.touched)">
+              Localização é obrigatória.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="foneComercial" id="foneComercial" placeholder="Fone Comercial"
+              formControlName="foneComercial" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('foneComercial')?.invalid && (parceirosForm.get('foneComercial')?.dirty || parceirosForm.get('foneComercial')?.touched)">
+              Fone comercial é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="celular" id="celular" placeholder="Celular"
+              formControlName="celular" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('celular')?.invalid && (parceirosForm.get('celular')?.dirty || parceirosForm.get('celular')?.touched)">
+              Celular é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="requisito" id="requisito" placeholder="Requisito"
+              formControlName="requisito" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('requisito')?.invalid && (parceirosForm.get('requisito')?.dirty || parceirosForm.get('requisito')?.touched)">
+              Requisito é obrigatório.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="input-form" type="text" name="turno" id="turno" placeholder="Turno"
+              formControlName="turno" required />
+            <div class="error-message"
+              *ngIf="parceirosForm.get('turno')?.invalid && (parceirosForm.get('turno')?.dirty || parceirosForm.get('turno')?.touched)">
+              Turno é obrigatório.
+            </div>
+          </div>
         </div>
       </div>
 

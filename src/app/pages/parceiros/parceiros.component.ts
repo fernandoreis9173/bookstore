@@ -135,6 +135,11 @@ export class ParceirosComponent {
   }
 
   enviar() {
+    if (this.parceirosForm.invalid) {
+      this.parceirosForm.markAllAsTouched(); // Exibe os erros nos campos obrigatórios
+      return; // Interrompe o envio até que o formulário esteja válido
+    }
+
     const { id, ...parceiroData } = {
       id: this.parceirosForm.value.id,
       nameEmpresa: this.parceirosForm.value.nameEmpresa,

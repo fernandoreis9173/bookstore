@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FinanceiroComponent } from './financeiro/financeiro.component';
 
 @NgModule(
     {
@@ -35,6 +36,7 @@ import { MatInputModule } from '@angular/material/input';
           LastJobComponent,
           ParceirosComponent,
           AgendamentoComponent,
+          FinanceiroComponent,
         ],
         imports:[
             CommonModule,
@@ -63,6 +65,7 @@ import { MatInputModule } from '@angular/material/input';
           LastJobComponent,
           ParceirosComponent,
           AgendamentoComponent,
+          FinanceiroComponent,
         ]
     }
 )

@@ -95,7 +95,7 @@ label {
     background: white;
     padding: 16px;
     border-radius: 10px;
-    min-height: 800px;
+    min-height: 600px;
     min-width: 352px;
 
     .card-header {
@@ -303,4 +303,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-datepicker-content .mat-calendar {
   width: 296px;
   height: 100% !important;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

@@ -25,6 +25,8 @@ export class SidebarComponent {
       this.menuService.menuSelecionado = 4;
     } else if (currentRoute.includes('agendamento')) {
       this.menuService.menuSelecionado = 5;
+    } else if (currentRoute.includes('financeiro')) {
+      this.menuService.menuSelecionado = 6;
     }
   }
 
@@ -56,6 +58,7 @@ export class SidebarComponent {
       case 3: return '/curriculos';
       case 4: return '/partners';
       case 5: return '/agendamento';
+      case 6: return '/financeiro';
       default: return '/';
     }
   }

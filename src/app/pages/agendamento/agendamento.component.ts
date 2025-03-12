@@ -162,6 +162,11 @@ export class AgendamentoComponent {
     private parceiroService: ParceirosService
   ) {}
 
+  isInvalidField(field: string): boolean {
+    return this.agendamentoForm.get(field)?.invalid &&
+           (this.agendamentoForm.get(field)?.dirty || this.agendamentoForm.get(field)?.touched);
+  }
+
   agendamentoForm: FormGroup;
 
   ngOnInit() {
@@ -246,6 +251,12 @@ export class AgendamentoComponent {
   }
 
   enviar() {
+
+    if (this.agendamentoForm.invalid) {
+      this.agendamentoForm.markAllAsTouched(); // Exibe os erros nos campos obrigatórios
+      return; // Interrompe o envio até que o formulário esteja válido
+    }
+
     const { id, ...parceiroData } = {
       id: this.agendamentoForm.value.id,
       nomeEmpregada: this.agendamentoForm.value.nomeEmpregada,
